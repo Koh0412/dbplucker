@@ -1,7 +1,7 @@
 import { Application } from "./system/core/Application";
 
 function boot() {
-    console.log('Start Application ...');
+  console.log('Start Application ...');
 }
 
 boot();

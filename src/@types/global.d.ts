@@ -1,9 +1,9 @@
 import { IpcRenderer } from 'electron';
 
 declare global {
-    interface Window {
-        ipcRenderer: IpcRenderer;
-    }
+  interface Window {
+    ipcRenderer: IpcRenderer;
+  }
 
-    let ipcRenderer = window.ipcRenderer;
+  let ipcRenderer = window.ipcRenderer;
 }
