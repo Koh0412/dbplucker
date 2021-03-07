@@ -1,7 +1,8 @@
 import path from 'path';
 
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { DEFAULT_WINDOW_OPTIONS, ROOT_INDEX_URL } from '../const';
+import { DEFAULT_WINDOW_OPTIONS, ROOT_INDEX_URL } from '../constants/const';
+import { ipcKeys } from '../../common/ipcKeys';
 
 export class Application {
   private mainWindow: BrowserWindow | null;
@@ -10,8 +11,8 @@ export class Application {
     process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
     this.mainWindow = null;
 
-    ipcMain.on('test', (e) => {
-      e.sender.send('reply', 'pong');
+    ipcMain.on(ipcKeys.TEST, (e) => {
+      e.sender.send(ipcKeys.REPLY, 'pong');
     });
 
     app.on('ready', () => this.createWindow());

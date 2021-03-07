@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ipcKeys } from '../common/ipcKeys';
 import App from './components/App';
 
 ReactDOM.render(
@@ -10,9 +11,9 @@ ReactDOM.render(
 );
 
 setTimeout(() => {
-  ipcRenderer.send('test', 'ping');
+  ipcRenderer.send(ipcKeys.TEST, 'ping');
 }, 3000);
 
-ipcRenderer.on('reply', (e, args) => {
+ipcRenderer.on(ipcKeys.REPLY, (e, args) => {
   console.log(e, args);
 });

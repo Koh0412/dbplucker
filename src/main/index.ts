@@ -1,4 +1,4 @@
-import { Application } from "./system/core/Application";
+import { Application } from "./core/Application";
 
 function boot() {
   console.log('Start Application ...');
