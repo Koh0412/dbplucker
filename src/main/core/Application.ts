@@ -1,8 +1,7 @@
-import path from 'path';
-
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { DEFAULT_WINDOW_OPTIONS, ROOT_INDEX_URL } from '../constants/const';
+import { WINDOW_OPTIONS } from '../constants/windowOption';
 import { ipcKeys } from '../../common/ipcKeys';
+import { SystemUtil } from '../utils/SystemUtil';
 
 export class Application {
   private mainWindow: BrowserWindow | null;
@@ -22,28 +21,14 @@ export class Application {
     });
   }
 
-  private get windowOption() {
-    const options: Electron.BrowserWindowConstructorOptions = {
-      ...DEFAULT_WINDOW_OPTIONS,
-      titleBarStyle: 'hidden',
-      webPreferences: {
-        nodeIntegration: false,
-        contextIsolation: false,
-        preload: path.join(__dirname, '../preload.js')
-      },
-    }
-
-    return options;
-  }
-
   static start(): Application {
     return new Application();
   }
 
   createWindow(): BrowserWindow {
-    this.mainWindow = new BrowserWindow(this.windowOption);
+    this.mainWindow = new BrowserWindow(WINDOW_OPTIONS.main);
 
-    this.mainWindow.loadURL(ROOT_INDEX_URL);
+    this.mainWindow.loadURL(SystemUtil.createHtmlPath('index'));
     this.mainWindow.on('closed', () => {
       this.mainWindow = null;
     });
