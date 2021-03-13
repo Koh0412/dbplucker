@@ -1,18 +1,22 @@
-import { BrowserWindow } from "electron";
 import { WINDOW_OPTIONS } from "../../constants/windowOption";
-import { SystemUtil } from "../../utils/SystemUtil";
 import { BaseWindow } from "./BaseWindow";
+import { SettingWindow } from "./SettingWindow";
 
 export class MainWindow extends BaseWindow {
-  protected window: BrowserWindow | null = null;
+  private settings: SettingWindow | null = null;
 
   constructor() {
-    super();
-    this.window = new BrowserWindow(WINDOW_OPTIONS.main);
+    super(WINDOW_OPTIONS.main);
+    this.loadHtmlName('index');
 
-    this.window.loadURL(SystemUtil.createHtmlPath('index'));
-    this.window.on('closed', () => {
-      this.window = null;
+    this.window?.on('ready-to-show', () => {
+      this.settings = SettingWindow.create();
+    });
+
+    this.window?.on('closed', () => {
+      if (this.settings) {
+        this.settings.dispose();
+      }
     });
   }
 
