@@ -13,11 +13,18 @@ export class BaseWindow {
     });
   }
 
-  loadHtmlName(name: string) {
-    this.window?.loadURL(SystemUtil.createHtmlPath(name));
+  /**
+   * ブラウザウィンドウのインスタンスを取得
+   */
+  get windowInstance() {
+    return this.window;
   }
 
-  dispose() {
-    this.window?.close();
+  /**
+   * 使用するhtml名をセット
+   * @param name
+   */
+  setUsingHtmlName(name: string) {
+    this.window?.loadURL(SystemUtil.createHtmlPath(name));
   }
 }

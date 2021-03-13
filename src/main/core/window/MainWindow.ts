@@ -7,15 +7,16 @@ export class MainWindow extends BaseWindow {
 
   constructor() {
     super(WINDOW_OPTIONS.main);
-    this.loadHtmlName('index');
+    this.setUsingHtmlName('index');
 
     this.window?.on('ready-to-show', () => {
       this.settings = SettingWindow.create();
+      this.settings.windowInstance?.setParentWindow(this.windowInstance);
     });
 
     this.window?.on('closed', () => {
       if (this.settings) {
-        this.settings.dispose();
+        this.settings.windowInstance?.close();
       }
     });
   }

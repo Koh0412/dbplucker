@@ -19,6 +19,8 @@ export const WINDOW_OPTIONS: {[key: string]: Electron.BrowserWindowConstructorOp
   settings: {
     ...DEFAULT_WINDOW_OPTIONS,
     width: 400,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    resizable: false,
+    modal: true
   }
 };

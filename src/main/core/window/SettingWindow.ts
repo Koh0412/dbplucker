@@ -4,7 +4,9 @@ import { BaseWindow } from "./BaseWindow";
 export class SettingWindow extends BaseWindow {
   constructor() {
     super(WINDOW_OPTIONS.settings);
-    this.loadHtmlName('settings');
+    this.setUsingHtmlName('settings');
+
+    this.window?.setMenu(null);
   }
 
   static create(): BaseWindow {

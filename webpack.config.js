@@ -32,9 +32,12 @@ var main = {
 var renderer = {
   mode: 'development',
   target: 'electron-renderer',
-  entry: path.join(__dirname, 'src/renderer/index.tsx'),
+  entry: {
+    index: path.join(__dirname, 'src/renderer/index.tsx'),
+    settings: path.join(__dirname, 'src/renderer/settings.tsx')
+  },
   output: {
-    filename: 'index.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist/renderer')
   },
   resolve: {
