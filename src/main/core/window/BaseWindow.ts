@@ -2,22 +2,22 @@ import { BrowserWindow } from "electron";
 import { SystemUtil } from "../../utils/SystemUtil";
 
 export class BaseWindow {
-  protected window: BrowserWindow | null = null;
+  private windowInstance: BrowserWindow | null = null;
 
   constructor(options: Electron.BrowserWindowConstructorOptions) {
-    this.window = new BrowserWindow(options);
+    this.windowInstance = new BrowserWindow(options);
 
-    this.window.on('ready-to-show', () => this.window?.show());
-    this.window.on('closed', () => {
-      this.window = null;
+    this.windowInstance.on('ready-to-show', () => this.windowInstance?.show());
+    this.windowInstance.on('closed', () => {
+      this.windowInstance = null;
     });
   }
 
   /**
    * ブラウザウィンドウのインスタンスを取得
    */
-  get windowInstance() {
-    return this.window;
+  get window() {
+    return this.windowInstance;
   }
 
   /**
@@ -25,6 +25,6 @@ export class BaseWindow {
    * @param name
    */
   setUsingHtmlName(name: string) {
-    this.window?.loadURL(SystemUtil.createHtmlPath(name));
+    this.windowInstance?.loadURL(SystemUtil.createHtmlPath(name));
   }
 }

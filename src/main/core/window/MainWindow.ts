@@ -3,7 +3,7 @@ import { BaseWindow } from "./BaseWindow";
 import { SettingWindow } from "./SettingWindow";
 
 export class MainWindow extends BaseWindow {
-  private settings: SettingWindow | null = null;
+  private settings: BaseWindow | null = null;
 
   constructor() {
     super(WINDOW_OPTIONS.main);
@@ -11,12 +11,12 @@ export class MainWindow extends BaseWindow {
 
     this.window?.on('ready-to-show', () => {
       this.settings = SettingWindow.create();
-      this.settings.windowInstance?.setParentWindow(this.windowInstance);
+      this.settings.window?.setParentWindow(this.window);
     });
 
     this.window?.on('closed', () => {
       if (this.settings) {
-        this.settings.windowInstance?.close();
+        this.settings.window?.close();
       }
     });
   }

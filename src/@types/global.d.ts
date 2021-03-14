@@ -5,5 +5,12 @@ declare global {
     ipcRenderer: IpcRenderer;
   }
 
+  interface ISettingFormState {
+    host: string;
+    username: string;
+    password: string;
+    database: string;
+  }
+
   let ipcRenderer = window.ipcRenderer;
 }

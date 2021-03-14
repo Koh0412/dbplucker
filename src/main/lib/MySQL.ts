@@ -5,30 +5,35 @@ export class MySQL {
   private connection: Bluebird<mysql.Connection>;
 
   constructor(
-    private host: string,
-    private user: string,
-    private password: string,
-    private database: string
+    private setting: ISettingFormState
   ) {
     this.connection = mysql.createConnection({
-      host: this.host,
-      user: this.user,
-      password: this.password,
-      database: this.database,
+      host: this.setting.host,
+      user: this.setting.username,
+      password: this.setting.password,
+      database: this.setting.database,
       multipleStatements: true
     });
   }
 
+  /**
+   * コネクションドライバーを取得
+   */
+  get driver() {
+    return this.connection;
+  }
+
+  /**
+   * クエリを実行する
+   * @param query
+   * @returns Promise<any>
+   */
   async execute(query: string) {
     return this.connection.then((connect) => {
       const result = connect.query(query);
       connect.end();
 
       return result
-    }).catch((err) => this.handleError(err));
-  }
-
-  private handleError(err: any) {
-    console.log(err);
+    });
   }
 }
