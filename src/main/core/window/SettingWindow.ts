@@ -9,7 +9,16 @@ export class SettingWindow extends BaseWindow {
     super(WINDOW_OPTIONS.settings);
     this.setUsingHtmlName('settings');
 
-    ipcMain.on(ipcKeys.CONNECT, this.connectDatabase.bind(this));
+    ipcMain.on(ipcKeys.CONNECT, (e, args) => {
+      const mysql = new MySQL(args);
+
+      mysql.driver.then(() => {
+        const parent = this.window?.getParentWindow();
+
+        this.window?.close();
+        parent?.show();
+      });
+    });
 
     this.window?.setMenu(null);
   }
@@ -35,8 +44,6 @@ export class SettingWindow extends BaseWindow {
 
       this.window?.close();
       parent?.show();
-    }).catch((err) => {
-      dialog.showErrorBox('Connection Error', err.sqlMessage);
     });
   }
 }
