@@ -1,4 +1,4 @@
-import { dialog, ipcMain } from "electron";
+import { ipcMain } from "electron";
 import { ipcKeys } from "../../../common/ipcKeys";
 import { WINDOW_OPTIONS } from "../../constants/windowOption";
 import { MySQL } from "../../lib/MySQL";
@@ -9,16 +9,7 @@ export class SettingWindow extends BaseWindow {
     super(WINDOW_OPTIONS.settings);
     this.setUsingHtmlName('settings');
 
-    ipcMain.on(ipcKeys.CONNECT, (e, args) => {
-      const mysql = new MySQL(args);
-
-      mysql.driver.then(() => {
-        const parent = this.window?.getParentWindow();
-
-        this.window?.close();
-        parent?.show();
-      });
-    });
+    ipcMain.on(ipcKeys.CONNECT, this.connectDatabase.bind(this));
 
     this.window?.setMenu(null);
   }
