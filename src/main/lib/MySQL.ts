@@ -3,12 +3,12 @@ import * as Bluebird from 'bluebird';
 import { dialog } from 'electron';
 
 export class MySQL {
-  private connection: Bluebird<mysql.Connection>;
+  private _connection: Bluebird<mysql.Connection>;
 
   constructor(
     private setting: ISettingFormState
   ) {
-    this.connection = mysql.createConnection({
+    this._connection = mysql.createConnection({
       host: this.setting.host,
       user: this.setting.username,
       password: this.setting.password,
@@ -28,10 +28,10 @@ export class MySQL {
   }
 
   /**
-   * コネクションドライバーを取得
+   * コネクションを取得
    */
-  get driver() {
-    return this.connection;
+  get connection() {
+    return this._connection;
   }
 
   /**

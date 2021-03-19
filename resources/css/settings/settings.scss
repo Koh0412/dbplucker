@@ -1,0 +1,21 @@
+body {
+  background-color: #ebebeb;
+}
+
+#app {
+  background: white;
+  border: 1px solid #bbb;
+  padding: .5rem;
+}
+
+.form-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: .3rem;
+
+  input {
+    &.port {
+      width: 5rem;
+    }
+  }
+}

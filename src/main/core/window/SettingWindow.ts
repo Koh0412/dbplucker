@@ -30,7 +30,7 @@ export class SettingWindow extends BaseWindow {
   connectDatabase(e: Electron.IpcMainEvent, form: ISettingFormState) {
     const mysql = new MySQL(form);
 
-    mysql.driver.then(() => {
+    mysql.connection.then(() => {
       const parent = this.window?.getParentWindow();
 
       this.window?.close();

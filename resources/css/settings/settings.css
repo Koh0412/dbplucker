@@ -1,0 +1,24 @@
+body {
+  background-color: #ebebeb;
+}
+
+#app {
+  background: white;
+  border: 1px solid #bbb;
+  padding: .5rem;
+}
+
+.form-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: .3rem;
+}
+
+.form-item input.port {
+  width: 5rem;
+}
+/*# sourceMappingURL=settings.css.map */

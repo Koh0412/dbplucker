@@ -10,6 +10,7 @@ declare global {
     username: string;
     password: string;
     database: string;
+    port: number;
   }
 
   let ipcRenderer = window.ipcRenderer;
