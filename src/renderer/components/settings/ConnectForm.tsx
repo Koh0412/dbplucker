@@ -31,10 +31,13 @@ class ConnectForm extends React.Component<{}, ISettingFormState> {
    */
   connect(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(this.state.settings);
     ipcRenderer.send(ipcKeys.CONNECT, this.state.settings);
   }
 
+  /**
+   * フォーム変更時のハンドラ
+   * @param e
+   */
   change(e: React.FormEvent<HTMLFormElement>) {
     const target = e.target as HTMLInputElement;
     this.formParts[target.name] = target.value;
