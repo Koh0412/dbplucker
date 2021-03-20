@@ -6,13 +6,14 @@ export class MySQL {
   private _connection: Bluebird<mysql.Connection>;
 
   constructor(
-    private setting: ISettingFormState
+    private setting: IDatabaseSetting
   ) {
     this._connection = mysql.createConnection({
       host: this.setting.host,
       user: this.setting.username,
       password: this.setting.password,
       database: this.setting.database,
+      port: this.setting.port,
       multipleStatements: true
     });
 

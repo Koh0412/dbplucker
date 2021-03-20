@@ -27,7 +27,7 @@ export class SettingWindow extends BaseWindow {
    * @param e
    * @param form
    */
-  connectDatabase(e: Electron.IpcMainEvent, form: ISettingFormState) {
+  connectDatabase(e: Electron.IpcMainEvent, form: IDatabaseSetting) {
     const mysql = new MySQL(form);
 
     mysql.connection.then(() => {

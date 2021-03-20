@@ -5,7 +5,8 @@ declare global {
     ipcRenderer: IpcRenderer;
   }
 
-  interface ISettingFormState {
+  interface IDatabaseSetting {
+    [key: string]: string | number;
     host: string;
     username: string;
     password: string;

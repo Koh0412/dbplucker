@@ -1,17 +1,28 @@
 import React from 'react';
 import { ipcKeys } from '../../../common/ipcKeys';
+import FormItem from './FormItem';
+
+interface ISettingFormState {
+  settings: IDatabaseSetting;
+}
 
 class ConnectForm extends React.Component<{}, ISettingFormState> {
+  private formParts: IDatabaseSetting;
+
   constructor(props: {}) {
     super(props);
 
     this.state = {
-      host: '',
-      username: '',
-      password: '',
-      database: '',
-      port: 3306,
+      settings: {
+        host: '',
+        username: '',
+        password: '',
+        database: '',
+        port: 3306,
+      },
     };
+
+    this.formParts = this.state.settings;
   }
 
   /**
@@ -20,72 +31,29 @@ class ConnectForm extends React.Component<{}, ISettingFormState> {
    */
   connect(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    ipcRenderer.send(ipcKeys.CONNECT, this.state);
+    console.log(this.state.settings);
+    ipcRenderer.send(ipcKeys.CONNECT, this.state.settings);
   }
 
-  /**
-   * ユーザーネーム変更
-   * @param e
-   */
-  changeUsername(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ username: e.target.value });
-  }
+  change(e: React.FormEvent<HTMLFormElement>) {
+    const target = e.target as HTMLInputElement;
+    this.formParts[target.name] = target.value;
 
-  /**
-   * パスワード変更
-   * @param e
-   */
-  changePassword(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ password: e.target.value });
-  }
+    if (target.name === 'port') {
+      this.formParts[target.name] = parseInt(target.value, 10);
+    }
 
-  /**
-   * ホスト変更
-   * @param e
-   */
-  changeHost(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ host: e.target.value });
-  }
-
-  /**
-   * データベース名変更
-   * @param e
-   */
-  changeDatabase(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ database: e.target.value });
-  }
-
-  /**
-   * ポート変更
-   * @param e
-   */
-  changePort(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ port: parseInt(e.target.value, 10) });
+    this.setState({settings: this.formParts});
   }
 
   render() {
     return (
-      <form className="setting-form" onSubmit={this.connect.bind(this)}>
-        <div className="form-item">
-          <label htmlFor="host">host:</label>
-          <input type="text" id="host" value={this.state.host} onChange={this.changeHost.bind(this)} />
-        </div>
-        <div className="form-item">
-          <label htmlFor="username">username:</label>
-          <input type="text" id="username" value={this.state.username} onChange={this.changeUsername.bind(this)} />
-        </div>
-        <div className="form-item">
-          <label htmlFor="password">password:</label>
-          <input type="password" id="password" value={this.state.password} onChange={this.changePassword.bind(this)} />
-        </div>
-        <div className="form-item">
-          <label htmlFor="port">port:</label>
-          <input className="port" type="number" id="port" value={this.state.port} onChange={this.changePort.bind(this)} />
-        </div>
-        <div className="form-item">
-          <label htmlFor="database">database</label>
-          <input type="text" id="database" value={this.state.database} onChange={this.changeDatabase.bind(this)} />
-        </div>
+      <form className="setting-form" onSubmit={this.connect.bind(this)} onChange={this.change.bind(this)}>
+        <FormItem name="host" type="text" value={this.state.settings.host} />
+        <FormItem name="username" type="text" value={this.state.settings.username} />
+        <FormItem name="password" type="password" value={this.state.settings.password} />
+        <FormItem name="port" type="number" value={this.state.settings.port} />
+        <FormItem name="database" type="text" value={this.state.settings.database} />
         <div>
           <button type="submit">connect</button>
         </div>
