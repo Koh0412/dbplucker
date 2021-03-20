@@ -14,5 +14,9 @@ declare global {
     port: number;
   }
 
+  interface IDatabaseInfoCollection {
+    databases: string[];
+  }
+
   let ipcRenderer = window.ipcRenderer;
 }

@@ -31,21 +31,44 @@ export class MySQL {
   /**
    * コネクションを取得
    */
-  get connection() {
+  get connection(): Bluebird<mysql.Connection> {
     return this._connection;
   }
 
   /**
    * クエリを実行する
    * @param query
-   * @returns Promise<any>
    */
-  async execute(query: string) {
-    return this.connection.then((connect) => {
-      const result = connect.query(query);
+  async execute(query: string): Promise<any> {
+    return this.connection.then(async (connect) => {
+      const result = await connect.query(query);
       connect.end();
 
       return result
     });
+  }
+
+  /**
+   * データベース名を取得
+   */
+  async showDatabases(): Promise<string[]> {
+    const results: any[] = await this.execute('SHOW DATABASES');
+    const tmp_box: string[] = [];
+
+    for (const res of results) {
+      tmp_box.push(res.Database);
+    }
+    return tmp_box;
+  }
+
+  /**
+   * dbに関する情報を集める
+   */
+  async collectInfo() {
+    const info: IDatabaseInfoCollection = {
+      databases: await this.showDatabases()
+    };
+
+    return info;
   }
 }
