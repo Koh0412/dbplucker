@@ -25,19 +25,19 @@ export class SettingWindow extends BaseWindow {
   /**
    * データベースへの接続
    * @param e
-   * @param form
+   * @param setting
    */
-  async connectDatabase(e: Electron.IpcMainEvent, form: IDatabaseSetting) {
-    const mysql = new MySQL(form);
+  async connectDatabase(e: Electron.IpcMainEvent, setting: IDatabaseSetting) {
+    const mysql = new MySQL(setting);
 
     mysql.connection.then(async () => {
       const parent = this.window?.getParentWindow();
-      this.window?.destroy();
+      this.window?.close();
 
       if (parent) {
         parent.show();
 
-        const info = await mysql.collectInfo();
+        const info = await mysql.collectInfo(setting);
         parent.webContents.send('dbinfo', info);
       }
     });

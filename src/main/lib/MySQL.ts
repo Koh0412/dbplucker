@@ -1,6 +1,7 @@
 import mysql from 'promise-mysql';
 import * as Bluebird from 'bluebird';
 import { dialog } from 'electron';
+import { queryBuilder } from '../utils/QueryBuilder';
 
 export class MySQL {
   private _connection: Bluebird<mysql.Connection>;
@@ -39,34 +40,43 @@ export class MySQL {
    * クエリを実行する
    * @param query
    */
-  async execute(query: string): Promise<any> {
+  async execute<T = any>(query: string): Promise<T> {
     return this.connection.then(async (connect) => {
       const result = await connect.query(query);
-      connect.end();
-
       return result
     });
   }
 
   /**
-   * データベース名を取得
+   * データベースの情報を取得
+   * @param database
+   * @returns
    */
-  async showDatabases(): Promise<string[]> {
-    const results: any[] = await this.execute('SHOW DATABASES');
-    const tmp_box: string[] = [];
+  async showDatabaseInfo(database: string): Promise<ISchemata[]> {
+    let query = '';
+    const selectQuery = queryBuilder.select({
+      table: 'information_schema.SCHEMATA',
+      selectColumns: ['SCHEMA_NAME AS name', 'DEFAULT_COLLATION_NAME AS collation'],
+    });
 
-    for (const res of results) {
-      tmp_box.push(res.Database);
+    if (database) {
+      query = selectQuery.where({ SCHEMA_NAME: database }).build();
+    } else {
+      query = selectQuery.build();
     }
-    return tmp_box;
+
+    const schemaList: ISchemata[] = await this.execute(query);
+    return schemaList
   }
 
   /**
    * dbに関する情報を集める
+   * @param setting
+   * @returns
    */
-  async collectInfo() {
+  async collectInfo(setting: IDatabaseSetting) {
     const info: IDatabaseInfoCollection = {
-      databases: await this.showDatabases()
+      schemataList: await this.showDatabaseInfo(setting.database)
     };
 
     return info;

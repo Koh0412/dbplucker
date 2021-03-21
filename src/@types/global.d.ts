@@ -15,7 +15,12 @@ declare global {
   }
 
   interface IDatabaseInfoCollection {
-    databases: string[];
+    schemataList: ISchemata[];
+  }
+
+  interface ISchemata {
+    name: string;
+    collation: string;
   }
 
   let ipcRenderer = window.ipcRenderer;

@@ -31,8 +31,8 @@ class App extends React.Component<{}, AppState> {
    * データベース名を表示する要素
    */
   get databaseElements() {
-    return this.state.dbinfo?.databases.map((database) => {
-      return <li>{database}</li>
+    return this.state.dbinfo?.schemataList.map((schemata) => {
+      return <li>{schemata.name}: {schemata.collation}</li>
     });
   }
 
