@@ -9,6 +9,7 @@ class App extends React.Component {
   render(): JSX.Element {
     return (
       <>
+        <div className="fav-list card">favorite</div>
         <ConnectForm />
       </>
     );

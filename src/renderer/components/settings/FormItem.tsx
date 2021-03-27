@@ -4,6 +4,7 @@ interface FormItemProps {
   name: string;
   type: string;
   value: string | number;
+  placeholder?: string;
 }
 
 class FormItem extends React.Component<FormItemProps> {
@@ -21,6 +22,7 @@ class FormItem extends React.Component<FormItemProps> {
           name={this.props.name}
           id={this.props.name}
           defaultValue={this.props.value}
+          placeholder={this.props.placeholder}
         />
       </div>
     );

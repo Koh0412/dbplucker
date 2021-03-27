@@ -6,4 +6,20 @@ body {
 ul {
   list-style: none;
 }
+
+::-webkit-input-placeholder {
+  color: #ccc;
+}
+
+:-ms-input-placeholder {
+  color: #ccc;
+}
+
+::-ms-input-placeholder {
+  color: #ccc;
+}
+
+::placeholder {
+  color: #ccc;
+}
 /*# sourceMappingURL=common.css.map */

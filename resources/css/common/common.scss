@@ -6,3 +6,7 @@ body {
 ul {
   list-style: none;
 }
+
+::placeholder {
+  color: #ccc;
+}

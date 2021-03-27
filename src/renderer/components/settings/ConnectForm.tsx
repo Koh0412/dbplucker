@@ -3,7 +3,7 @@ import { ipcKeys } from '../../../common/ipcKeys';
 import FormItem from './FormItem';
 
 interface ISettingFormState {
-  settings: IDatabaseSetting;
+  setting: IDatabaseSetting;
 }
 
 class ConnectForm extends React.Component<{}, ISettingFormState> {
@@ -13,7 +13,7 @@ class ConnectForm extends React.Component<{}, ISettingFormState> {
     super(props);
 
     this.state = {
-      settings: {
+      setting: {
         host: '',
         username: '',
         password: '',
@@ -22,7 +22,7 @@ class ConnectForm extends React.Component<{}, ISettingFormState> {
       },
     };
 
-    this.formParts = this.state.settings;
+    this.formParts = this.state.setting;
   }
 
   /**
@@ -31,7 +31,19 @@ class ConnectForm extends React.Component<{}, ISettingFormState> {
    */
   connect(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    ipcRenderer.send(ipcKeys.CONNECT, this.state.settings);
+    ipcRenderer.send(ipcKeys.CONNECT, this.state.setting);
+  }
+
+  /**
+   * お気に入り登録
+   * @param e
+   */
+  favorite(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    const setting = this.state.setting;
+
+    if (setting.host && setting.username && setting.password) {
+      ipcRenderer.send(ipcKeys.FAVORITE, this.state.setting);
+    }
   }
 
   /**
@@ -46,21 +58,26 @@ class ConnectForm extends React.Component<{}, ISettingFormState> {
       this.formParts[target.name] = parseInt(target.value, 10);
     }
 
-    this.setState({settings: this.formParts});
+    this.setState({setting: this.formParts});
   }
 
   render() {
     return (
-      <form className="setting-form" onSubmit={this.connect.bind(this)} onChange={this.change.bind(this)}>
-        <FormItem name="host" type="text" value={this.state.settings.host} />
-        <FormItem name="username" type="text" value={this.state.settings.username} />
-        <FormItem name="password" type="password" value={this.state.settings.password} />
-        <FormItem name="port" type="number" value={this.state.settings.port} />
-        <FormItem name="database" type="text" value={this.state.settings.database} />
+      <div className="form-container">
+        <form className="setting-form card" onSubmit={this.connect.bind(this)} onChange={this.change.bind(this)}>
+          <FormItem name="host" type="text" value={this.state.setting.host} />
+          <FormItem name="username" type="text" value={this.state.setting.username} />
+          <FormItem name="password" type="password" value={this.state.setting.password} />
+          <FormItem name="port" type="number" value={this.state.setting.port} />
+          <FormItem name="database" type="text" value={this.state.setting.database} placeholder='option' />
+          <div className="btn-container">
+            <button className="btn-primary" type="submit">connect</button>
+          </div>
+        </form>
         <div>
-          <button type="submit">connect</button>
+          <button className="btn-secondary" onClick={this.favorite.bind(this)}>favorite</button>
         </div>
-      </form>
+      </div>
     );
   }
 }

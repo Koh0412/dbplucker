@@ -1,16 +1,77 @@
+/** global **/
 body {
   background-color: #ebebeb;
 }
 
-.setting-form {
+button {
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+
+/** components **/
+.card {
   padding: .8rem 2rem;
   background: white;
   border: 1px solid #bbb;
   border-radius: 3px;
-  position: relative;
 }
 
-.setting-form .form-item {
+.btn-primary {
+  padding: 3px 0;
+  background: -webkit-gradient(linear, left bottom, left top, from(#438ae4), to(#75c5ff));
+  background: linear-gradient(0deg, #438ae4, #75c5ff);
+  border: 1px solid #bec6ca;
+  color: white;
+  border-radius: 5px;
+  width: 7rem;
+}
+
+.btn-primary:hover {
+  background: -webkit-gradient(linear, left bottom, left top, from(#2e72ca), to(#58b1f0));
+  background: linear-gradient(0deg, #2e72ca, #58b1f0);
+}
+
+.btn-secondary {
+  padding: 3px 0;
+  border: 1px solid #bec6ca;
+  background: #fcfeff;
+  color: #333;
+  border-radius: 5px;
+  width: 7rem;
+}
+
+.btn-secondary:hover {
+  background: #eceff0;
+}
+
+/** specific **/
+#app {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
+.fav-list {
+  width: 25%;
+  padding: 0;
+  margin-right: .8rem;
+  height: 430px;
+}
+
+.form-container {
+  width: 75%;
+}
+
+.form-container .setting-form {
+  position: relative;
+  margin-bottom: .5rem;
+}
+
+.form-container .setting-form .form-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -21,16 +82,16 @@ body {
   width: 100%;
 }
 
-.setting-form .form-item:first-child {
+.form-container .setting-form .form-item:first-child {
   margin-top: .8rem;
 }
 
-.setting-form .form-item label {
+.form-container .setting-form .form-item label {
   margin-right: 1rem;
   width: 35%;
 }
 
-.setting-form .form-item input {
+.form-container .setting-form .form-item input {
   width: 65%;
   border: 1px solid #bfc1c5;
   padding: 5px 8px;
@@ -38,31 +99,17 @@ body {
   background: #fafbfd;
 }
 
-.setting-form .form-item input:focus {
+.form-container .setting-form .form-item input:focus {
   outline: none;
   border: 1px solid #56a8c4;
 }
 
-.setting-form button {
-  padding: 3px 0;
-  cursor: pointer;
-  position: absolute;
-  bottom: -35px;
-  right: 0;
-  background: -webkit-gradient(linear, left bottom, left top, from(#438ae4), to(#75c5ff));
-  background: linear-gradient(0deg, #438ae4, #75c5ff);
-  border: 1px solid #bec6ca;
-  color: white;
-  border-radius: 5px;
-  width: 7rem;
-}
-
-.setting-form button:focus {
-  outline: none;
-}
-
-.setting-form button:hover {
-  background: -webkit-gradient(linear, left bottom, left top, from(#2e72ca), to(#58b1f0));
-  background: linear-gradient(0deg, #2e72ca, #58b1f0);
+.form-container .setting-form .btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 /*# sourceMappingURL=settings.css.map */

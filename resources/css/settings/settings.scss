@@ -1,58 +1,101 @@
+/** global **/
+
 body {
   background-color: #ebebeb;
 }
 
-.setting-form {
+button {
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}
+
+/** components **/
+
+.card {
   padding: .8rem 2rem;
   background: white;
   border: 1px solid #bbb;
   border-radius: 3px;
-  position: relative;
+}
 
-  .form-item {
-    display: flex;
-    justify-content: center;
-    margin-bottom: .8rem;
-    width: 100%;
-    &:first-child {
-      margin-top: .8rem;
-    }
+.btn-primary {
+  padding: 3px 0;
+  background: linear-gradient(0deg, #438ae4, #75c5ff);
+  border: 1px solid #bec6ca;
+  color: white;
+  border-radius: 5px;
+  width: 7rem;
 
-    label {
-      margin-right: 1rem;
-      width: 35%;
-    }
+  &:hover {
+    background: linear-gradient(0deg, #2e72ca, #58b1f0);
+  }
+}
 
-    input {
-      width: 65%;
-      border: 1px solid #bfc1c5;
-      padding: 5px 8px;
-      border-radius: 3px;
-      background: #fafbfd;
-      &:focus {
-        outline: none;
-        border: 1px solid #56a8c4;
+.btn-secondary {
+  padding: 3px 0;
+  border: 1px solid #bec6ca;
+  background: #fcfeff;
+  color: #333;
+  border-radius: 5px;
+  width: 7rem;
+  &:hover {
+    background: #eceff0;
+  }
+}
+
+/** specific **/
+
+#app {
+  display: flex;
+  width: 100%;
+}
+
+.fav-list {
+  width: 25%;
+  padding: 0;
+  margin-right: .8rem;
+  height: 430px;
+}
+
+.form-container {
+  width: 75%;
+
+  .setting-form {
+    position: relative;
+    margin-bottom: .5rem;
+
+    .form-item {
+      display: flex;
+      justify-content: center;
+      margin-bottom: .8rem;
+      width: 100%;
+      &:first-child {
+        margin-top: .8rem;
+      }
+
+      label {
+        margin-right: 1rem;
+        width: 35%;
+      }
+
+      input {
+        width: 65%;
+        border: 1px solid #bfc1c5;
+        padding: 5px 8px;
+        border-radius: 3px;
+        background: #fafbfd;
+        &:focus {
+          outline: none;
+          border: 1px solid #56a8c4;
+        }
       }
     }
-  }
 
-  button {
-    padding: 3px 0;
-    cursor: pointer;
-    position: absolute;
-    bottom: -35px;
-    right: 0;
-    background: linear-gradient(0deg, #438ae4, #75c5ff);
-    border: 1px solid #bec6ca;
-    color: white;
-    border-radius: 5px;
-    width: 7rem;
-    &:focus {
-      outline: none;
-    }
-
-    &:hover {
-      background: linear-gradient(0deg, #2e72ca, #58b1f0);
+    .btn-container {
+      display: flex;
+      justify-content: flex-end;
     }
   }
 }
