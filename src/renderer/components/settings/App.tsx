@@ -9,7 +9,6 @@ class App extends React.Component {
   render(): JSX.Element {
     return (
       <>
-        <h3>Connect Database</h3>
         <ConnectForm />
       </>
     );

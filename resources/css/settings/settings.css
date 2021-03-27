@@ -2,23 +2,67 @@ body {
   background-color: #ebebeb;
 }
 
-#app {
+.setting-form {
+  padding: .8rem 2rem;
   background: white;
   border: 1px solid #bbb;
-  padding: .5rem;
+  border-radius: 3px;
+  position: relative;
 }
 
-.form-item {
+.setting-form .form-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  margin-bottom: .3rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: .8rem;
+  width: 100%;
 }
 
-.form-item input.port {
-  width: 5rem;
+.setting-form .form-item:first-child {
+  margin-top: .8rem;
+}
+
+.setting-form .form-item label {
+  margin-right: 1rem;
+  width: 35%;
+}
+
+.setting-form .form-item input {
+  width: 65%;
+  border: 1px solid #bfc1c5;
+  padding: 5px 8px;
+  border-radius: 3px;
+  background: #fafbfd;
+}
+
+.setting-form .form-item input:focus {
+  outline: none;
+  border: 1px solid #56a8c4;
+}
+
+.setting-form button {
+  padding: 3px 0;
+  cursor: pointer;
+  position: absolute;
+  bottom: -35px;
+  right: 0;
+  background: -webkit-gradient(linear, left bottom, left top, from(#438ae4), to(#75c5ff));
+  background: linear-gradient(0deg, #438ae4, #75c5ff);
+  border: 1px solid #bec6ca;
+  color: white;
+  border-radius: 5px;
+  width: 7rem;
+}
+
+.setting-form button:focus {
+  outline: none;
+}
+
+.setting-form button:hover {
+  background: -webkit-gradient(linear, left bottom, left top, from(#2e72ca), to(#58b1f0));
+  background: linear-gradient(0deg, #2e72ca, #58b1f0);
 }
 /*# sourceMappingURL=settings.css.map */
