@@ -1,11 +1,26 @@
 body {
   margin: 0;
   padding: .5rem;
+  font-size: 15px;
 }
-
 
 .dark {
   * {
     color: #c6cbd1;
+  }
+}
+
+.database-list {
+  padding: 0;
+  li {
+    display: flex;
+
+    .icon {
+      margin-right: .5rem;
+
+      i.fa-database {
+        color: #5eedff;
+      }
+    }
   }
 }

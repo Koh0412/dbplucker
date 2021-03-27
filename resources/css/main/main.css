@@ -1,9 +1,28 @@
 body {
   margin: 0;
   padding: .5rem;
+  font-size: 15px;
 }
 
 .dark * {
   color: #c6cbd1;
+}
+
+.database-list {
+  padding: 0;
+}
+
+.database-list li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.database-list li .icon {
+  margin-right: .5rem;
+}
+
+.database-list li .icon i.fa-database {
+  color: #5eedff;
 }
 /*# sourceMappingURL=main.css.map */

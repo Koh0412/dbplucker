@@ -38,7 +38,7 @@ export class SettingWindow extends BaseWindow {
         parent.show();
 
         const info = await mysql.collectInfo(setting);
-        parent.webContents.send('dbinfo', info);
+        parent.webContents.send(ipcKeys.DBINFO, info);
       }
     });
 

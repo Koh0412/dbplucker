@@ -2,6 +2,8 @@ import mysql from 'promise-mysql';
 import * as Bluebird from 'bluebird';
 import { dialog } from 'electron';
 import { queryBuilder } from '../utils/QueryBuilder';
+import { store } from './Store';
+import { storeKeys } from '../../common/storeKeys';
 
 export class MySQL {
   private _connection: Bluebird<mysql.Connection>;
@@ -16,6 +18,10 @@ export class MySQL {
       database: this.setting.database,
       port: this.setting.port,
       multipleStatements: true
+    });
+
+    this.connection.then(() => {
+      store.set(storeKeys.CONNECT_INFO, setting);
     });
 
     this.connection.catch((err) => {
