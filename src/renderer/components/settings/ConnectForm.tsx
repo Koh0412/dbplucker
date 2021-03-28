@@ -2,14 +2,19 @@ import React from 'react';
 import { ipcKeys } from '../../../common/ipcKeys';
 import FormItem from './FormItem';
 
-interface ISettingFormState {
-  setting: IDatabaseSetting;
+interface ConnectFormProps {
+  setting?: IDatabaseSetting;
 }
 
-class ConnectForm extends React.Component<{}, ISettingFormState> {
+interface ConnectFormState {
+  setting: IDatabaseSetting;
+  favorite: { name: string };
+}
+
+class ConnectForm extends React.Component<ConnectFormProps, ConnectFormState> {
   private formParts: IDatabaseSetting;
 
-  constructor(props: {}) {
+  constructor(props: ConnectFormProps) {
     super(props);
 
     this.state = {
@@ -20,9 +25,20 @@ class ConnectForm extends React.Component<{}, ISettingFormState> {
         database: '',
         port: 3306,
       },
+      favorite: {
+        name: '',
+      },
     };
 
     this.formParts = this.state.setting;
+  }
+
+  componentDidUpdate(previousProps: ConnectFormProps) {
+    if (previousProps.setting !== this.props.setting) {
+      if (this.props.setting) {
+        this.setState({ setting: this.props.setting })
+      }
+    }
   }
 
   /**
@@ -40,9 +56,13 @@ class ConnectForm extends React.Component<{}, ISettingFormState> {
    */
   favorite(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     const setting = this.state.setting;
+    const fav: IFavorite = {
+      setting, name: this.state.favorite.name
+    };
 
-    if (setting.host && setting.username && setting.password) {
-      ipcRenderer.send(ipcKeys.FAVORITE, this.state.setting);
+    if (fav.name && setting.host && setting.username && setting.password) {
+      this.setState({favorite: { name: '' }});
+      ipcRenderer.send(ipcKeys.REGIST_FAV, fav);
     }
   }
 
@@ -50,7 +70,7 @@ class ConnectForm extends React.Component<{}, ISettingFormState> {
    * フォーム変更時のハンドラ
    * @param e
    */
-  change(e: React.FormEvent<HTMLFormElement>) {
+  changeSetting(e: React.FormEvent<HTMLFormElement>) {
     const target = e.target as HTMLInputElement;
     this.formParts[target.name] = target.value;
 
@@ -61,10 +81,18 @@ class ConnectForm extends React.Component<{}, ISettingFormState> {
     this.setState({setting: this.formParts});
   }
 
+  /**
+   * お気に入りの名前ハンドラ
+   * @param e
+   */
+  changeFavName(e: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({ favorite: { name: e.target.value}});
+  }
+
   render() {
     return (
       <div className="form-container">
-        <form className="setting-form card" onSubmit={this.connect.bind(this)} onChange={this.change.bind(this)}>
+        <form className="setting-form card" onSubmit={this.connect.bind(this)} onChange={this.changeSetting.bind(this)}>
           <FormItem name="host" type="text" value={this.state.setting.host} />
           <FormItem name="username" type="text" value={this.state.setting.username} />
           <FormItem name="password" type="password" value={this.state.setting.password} />
@@ -74,7 +102,14 @@ class ConnectForm extends React.Component<{}, ISettingFormState> {
             <button className="btn-primary" type="submit">connect</button>
           </div>
         </form>
-        <div>
+        <div className="fav-form card">
+          <input
+            type="text"
+            name="name"
+            placeholder="name"
+            value={this.state.favorite.name}
+            onChange={this.changeFavName.bind(this)}
+          />
           <button className="btn-secondary" onClick={this.favorite.bind(this)}>favorite</button>
         </div>
       </div>

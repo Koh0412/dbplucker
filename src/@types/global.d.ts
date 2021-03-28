@@ -14,6 +14,11 @@ declare global {
     port: number;
   }
 
+  interface IFavorite {
+    name: string;
+    setting: IDatabaseSetting;
+  }
+
   interface IDatabaseInfoCollection {
     schemataList: ISchemata[];
   }

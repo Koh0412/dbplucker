@@ -12,7 +12,12 @@ export class SettingWindow extends BaseWindow {
     this.setUsingHtmlName('settings');
 
     ipcMain.on(ipcKeys.CONNECT, this.connectDatabase.bind(this));
-    ipcMain.on(ipcKeys.FAVORITE, this.registFavorite.bind(this));
+    ipcMain.on(ipcKeys.REGIST_FAV, this.registFavorite.bind(this));
+
+    this.window?.on('ready-to-show', () => {
+      const favList = store.getAsArray<IDatabaseSetting>(storeKeys.FAV_LIST);
+      this.window?.webContents.send(ipcKeys.SEND_FAV, favList);
+    });
 
     this.window?.setMenu(null);
   }
@@ -51,18 +56,20 @@ export class SettingWindow extends BaseWindow {
    * @param e
    * @param setting
    */
-  async registFavorite(e: Electron.IpcMainEvent, setting: IDatabaseSetting) {
-    const favList = store.getAsArray<IDatabaseSetting>(storeKeys.FAV_LIST);
+  async registFavorite(e: Electron.IpcMainEvent, favorite: IFavorite) {
+    const favList = store.getAsArray<IFavorite>(storeKeys.FAV_LIST);
 
     if (favList) {
-      const isDeplicated = favList.some((fav) => JSON.stringify(fav) === JSON.stringify(setting));
+      const isDeplicated = favList.some((item) => JSON.stringify(item) === JSON.stringify(favorite));
 
       if (!isDeplicated) {
-        favList.push(setting);
+        favList.push(favorite);
         store.set(storeKeys.FAV_LIST, favList);
       }
     } else {
-      store.set(storeKeys.FAV_LIST, [setting]);
+      store.set(storeKeys.FAV_LIST, [favorite]);
     }
+
+    this.window?.webContents.send(ipcKeys.SEND_FAV, store.getAsArray<IFavorite>(storeKeys.FAV_LIST));
   }
 }
