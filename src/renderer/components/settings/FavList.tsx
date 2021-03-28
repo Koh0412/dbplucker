@@ -24,8 +24,8 @@ class FavList extends React.Component<FavListProps, FavListState> {
    * 親コンポーネントにお気に入りを渡す
    * @param fav
    */
-  passFavorite(fav: IFavorite) {
-    this.props.favorite(fav);
+  passFavorite(token: string) {
+    this.props.favorite(JSON.parse(token) as IFavorite);
   }
 
   /**
@@ -33,7 +33,9 @@ class FavList extends React.Component<FavListProps, FavListState> {
    */
   get dispFavList() {
     return this.state.favList?.map((fav, i) => {
-      return (<li className="item" key={i} onClick={this.passFavorite.bind(this, fav)}>{fav.name}</li>);
+      return (
+        <li className="item" key={i} onClick={this.passFavorite.bind(this, JSON.stringify(fav))}>{fav.name}</li>
+      );
     });
   }
 

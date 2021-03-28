@@ -37,6 +37,7 @@ class ConnectForm extends React.Component<ConnectFormProps, ConnectFormState> {
     if (previousProps.setting !== this.props.setting) {
       if (this.props.setting) {
         this.setState({ setting: this.props.setting })
+        this.formParts = this.props.setting;
       }
     }
   }
@@ -86,7 +87,7 @@ class ConnectForm extends React.Component<ConnectFormProps, ConnectFormState> {
    * @param e
    */
   changeFavName(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ favorite: { name: e.target.value}});
+    this.setState({ favorite: { name: e.target.value }});
   }
 
   render() {

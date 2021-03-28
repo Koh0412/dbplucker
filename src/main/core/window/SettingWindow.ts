@@ -19,7 +19,7 @@ export class SettingWindow extends BaseWindow {
       this.window?.webContents.send(ipcKeys.SEND_FAV, favList);
     });
 
-    this.window?.setMenu(null);
+    // this.window?.setMenu(null);
   }
 
   /**

@@ -12,6 +12,8 @@ class FormItem extends React.Component<FormItemProps> {
     super(props);
   }
 
+  onChange(e: React.ChangeEvent<HTMLInputElement>) {}
+
   render() {
     return (
       <div className="form-item">
@@ -21,8 +23,9 @@ class FormItem extends React.Component<FormItemProps> {
           type={this.props.type}
           name={this.props.name}
           id={this.props.name}
-          defaultValue={this.props.value}
+          value={this.props.value}
           placeholder={this.props.placeholder}
+          onChange={this.onChange.bind(this)}
         />
       </div>
     );
