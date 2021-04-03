@@ -79,13 +79,23 @@ export class MySQL {
   }
 
   /**
+   * mysqlのバージョン取得
+   */
+  async mysqlVersion() {
+    const packet = await this.execute('SELECT version() as version');
+    return packet[0].version as string;
+  }
+
+  /**
    * dbに関する情報を集める
    * @param setting
    * @returns
    */
   async collectInfo(setting: IDatabaseSetting) {
+    this.mysqlVersion();
     const info: IDatabaseInfoCollection = {
-      schemataList: await this.showDatabaseInfo(setting.database)
+      schemataList: await this.showDatabaseInfo(setting.database),
+      version: await this.mysqlVersion(),
     };
 
     return info;

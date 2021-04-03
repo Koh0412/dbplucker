@@ -21,6 +21,7 @@ declare global {
 
   interface IDatabaseInfoCollection {
     schemataList: ISchemata[];
+    version: string;
   }
 
   interface ISchemata {
