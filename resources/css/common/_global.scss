@@ -1,3 +1,5 @@
+@import 'variables';
+
 /** global **/
 
 body {
@@ -46,5 +48,16 @@ button {
 
   &:hover {
     background: #eceff0;
+  }
+}
+
+.input-field {
+  border: 1px solid #bfc1c5;
+  padding: 5px 8px;
+  border-radius: 3px;
+  background: #fafbfd;
+  &:focus {
+    outline: none;
+    border: 1px solid $bd-form-input;
   }
 }

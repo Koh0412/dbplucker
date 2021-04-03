@@ -1,3 +1,4 @@
+/** variables **/
 /** global **/
 body {
   font-family: 'Noto Sans JP', sans-serif;
@@ -61,7 +62,18 @@ button:focus {
   background: #eceff0;
 }
 
-/** variables **/
+.input-field {
+  border: 1px solid #bfc1c5;
+  padding: 5px 8px;
+  border-radius: 3px;
+  background: #fafbfd;
+}
+
+.input-field:focus {
+  outline: none;
+  border: 1px solid #56a8c4;
+}
+
 /** global **/
 body {
   background-color: #ebebeb;
@@ -146,10 +158,6 @@ body {
 
 .form-container .setting-form .form-item input {
   width: 65%;
-  border: 1px solid #bfc1c5;
-  padding: 5px 8px;
-  border-radius: 3px;
-  background: #fafbfd;
 }
 
 .form-container .setting-form .form-item input:focus {
@@ -174,14 +182,5 @@ body {
 
 .form-container .fav-form input {
   width: 100%;
-  border: 1px solid #bfc1c5;
-  padding: 5px 8px;
-  border-radius: 3px;
-  background: #fafbfd;
   margin-right: .8rem;
-}
-
-.form-container .fav-form input:focus {
-  outline: none;
-  border: 1px solid #56a8c4;
 }

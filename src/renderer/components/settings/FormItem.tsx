@@ -1,4 +1,5 @@
 import React from 'react';
+import { UtilFunc } from '../utils/UtilFunc';
 
 interface FormItemProps {
   name: string;
@@ -10,6 +11,7 @@ interface FormItemProps {
 class FormItem extends React.Component<FormItemProps> {
   constructor(props: FormItemProps) {
     super(props);
+
   }
 
   onChange(e: React.ChangeEvent<HTMLInputElement>) {}
@@ -19,7 +21,7 @@ class FormItem extends React.Component<FormItemProps> {
       <div className="form-item">
         <label htmlFor={this.props.name}>{this.props.name}:</label>
         <input
-          className={this.props.name}
+          className={UtilFunc.joinSpace(this.props.name, "input-field")}
           type={this.props.type}
           name={this.props.name}
           id={this.props.name}

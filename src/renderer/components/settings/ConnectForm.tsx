@@ -105,6 +105,7 @@ class ConnectForm extends React.Component<ConnectFormProps, ConnectFormState> {
         </form>
         <div className="fav-form card">
           <input
+            className="input-field"
             type="text"
             name="name"
             placeholder="name"
