@@ -1,5 +1,5 @@
 import React from 'react';
-import { UtilFunc } from '../utils/UtilFunc';
+import { UtilFunc } from '../../utils/UtilFunc';
 
 interface FormItemProps {
   name: string;
@@ -11,7 +11,6 @@ interface FormItemProps {
 class FormItem extends React.Component<FormItemProps> {
   constructor(props: FormItemProps) {
     super(props);
-
   }
 
   onChange(e: React.ChangeEvent<HTMLInputElement>) {}
