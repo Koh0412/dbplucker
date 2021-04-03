@@ -1,6 +1,6 @@
 interface ISelect {
   table: string;
-  selectColumns?: string[];
+  columns?: {[as: string]: string} | string[];
 }
 
 class QueryBuilder {
@@ -38,16 +38,36 @@ class QueryBuilder {
   select(props: ISelect) {
     let mergeSelector = '';
 
-    if (props.selectColumns && props.selectColumns.length > 0) {
-      mergeSelector = props.selectColumns.join(', ');
+    // カラム指定があるかどうか
+    if (props.columns) {
+      if (Array.isArray(props.columns)) {
+        if (props.columns.length > 0) {
+          mergeSelector = props.columns.join(', ');
+        }
+      } else {
+        const orgColumnNames = Object.keys(props.columns);
+        const newNames = Object.values(props.columns);
+        const tmpList: string[] = [];
+
+        for (let i = 0; i < orgColumnNames.length; i++) {
+          tmpList.push(`${orgColumnNames[i]} AS ${newNames[i]}`);
+        }
+
+        mergeSelector = tmpList.join(', ');
+      }
     } else {
-      mergeSelector = ' *';
+      mergeSelector = '*';
     }
 
     this.query = `SELECT ${mergeSelector} FROM ${props.table}`;
     return this;
   }
 
+  /**
+   * where句の作成
+   * @param selector
+   * @returns
+   */
   where(selector: {[column: string]: string | number}) {
     const tmpList: string[] = [];
 

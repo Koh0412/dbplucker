@@ -62,7 +62,10 @@ export class MySQL {
     let query = '';
     const selectQuery = queryBuilder.select({
       table: 'information_schema.SCHEMATA',
-      selectColumns: ['SCHEMA_NAME AS name', 'DEFAULT_COLLATION_NAME AS collation'],
+      columns: {
+        SCHEMA_NAME: 'name',
+        DEFAULT_COLLATION_NAME: 'collation'
+      },
     });
 
     if (database) {
