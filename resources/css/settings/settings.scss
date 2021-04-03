@@ -1,14 +1,10 @@
+@import '../common/index';
+@import './variables';
+
 /** global **/
 
 body {
   background-color: #ebebeb;
-}
-
-button {
-  cursor: pointer;
-  &:focus {
-    outline: none;
-  }
 }
 
 /** components **/
@@ -18,31 +14,6 @@ button {
   background: white;
   border: 1px solid #bbb;
   border-radius: 3px;
-}
-
-.btn-primary {
-  padding: 3px 0;
-  background: linear-gradient(0deg, #438ae4, #75c5ff);
-  border: 1px solid #bec6ca;
-  color: white;
-  border-radius: 5px;
-  width: 7rem;
-
-  &:hover {
-    background: linear-gradient(0deg, #2e72ca, #58b1f0);
-  }
-}
-
-.btn-secondary {
-  padding: 3px 0;
-  border: 1px solid #bec6ca;
-  background: #fcfeff;
-  color: #333;
-  border-radius: 5px;
-  width: 7rem;
-  &:hover {
-    background: #eceff0;
-  }
 }
 
 /** specific **/
@@ -56,7 +27,7 @@ button {
   width: 25%;
   padding: 0;
   margin-right: .5rem;
-  height: 450px;
+  height: 100%;
 
   .title {
     margin: 0;
@@ -69,13 +40,15 @@ button {
     padding: 0;
     border-top: 1px solid #ddd;
     margin: 0;
+    height: 415px;
+    overflow: auto;
 
     .item {
       padding: 0 .5rem;
       cursor: pointer;
       &:hover {
-        color: white;
-        background: #0084ff;
+        color: highlightText;
+        background: $bg-highlight;
       }
     }
   }
@@ -110,7 +83,7 @@ button {
         background: #fafbfd;
         &:focus {
           outline: none;
-          border: 1px solid #56a8c4;
+          border: 1px solid $bd-form-input;
         }
       }
     }
@@ -133,7 +106,7 @@ button {
 
       &:focus {
         outline: none;
-        border: 1px solid #56a8c4;
+        border: 1px solid $bd-form-input;
       }
     }
   }

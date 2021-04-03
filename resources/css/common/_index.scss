@@ -1,0 +1,50 @@
+/** global **/
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+::placeholder {
+  color: #ccc;
+}
+
+/** components **/
+
+.btn-primary {
+  padding: 3px 0;
+  background: linear-gradient(0deg, #438ae4, #75c5ff);
+  border: 1px solid #bec6ca;
+  color: white;
+  border-radius: 5px;
+  width: 7rem;
+
+  &:hover {
+    background: linear-gradient(0deg, #2e72ca, #58b1f0);
+  }
+}
+
+.btn-secondary {
+  padding: 3px 0;
+  border: 1px solid #bec6ca;
+  background: #fcfeff;
+  color: #333;
+  border-radius: 5px;
+  width: 7rem;
+
+  &:hover {
+    background: #eceff0;
+  }
+}

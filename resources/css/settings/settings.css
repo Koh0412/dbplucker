@@ -1,6 +1,11 @@
 /** global **/
 body {
-  background-color: #ebebeb;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+}
+
+ul {
+  list-style: none;
 }
 
 button {
@@ -11,14 +16,23 @@ button:focus {
   outline: none;
 }
 
-/** components **/
-.card {
-  padding: .8rem 2rem;
-  background: white;
-  border: 1px solid #bbb;
-  border-radius: 3px;
+::-webkit-input-placeholder {
+  color: #ccc;
 }
 
+:-ms-input-placeholder {
+  color: #ccc;
+}
+
+::-ms-input-placeholder {
+  color: #ccc;
+}
+
+::placeholder {
+  color: #ccc;
+}
+
+/** components **/
 .btn-primary {
   padding: 3px 0;
   background: -webkit-gradient(linear, left bottom, left top, from(#438ae4), to(#75c5ff));
@@ -47,6 +61,20 @@ button:focus {
   background: #eceff0;
 }
 
+/** variables **/
+/** global **/
+body {
+  background-color: #ebebeb;
+}
+
+/** components **/
+.card {
+  padding: .8rem 2rem;
+  background: white;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+}
+
 /** specific **/
 #app {
   display: -webkit-box;
@@ -59,7 +87,7 @@ button:focus {
   width: 25%;
   padding: 0;
   margin-right: .5rem;
-  height: 450px;
+  height: 100%;
 }
 
 .fav-list .title {
@@ -73,6 +101,8 @@ button:focus {
   padding: 0;
   border-top: 1px solid #ddd;
   margin: 0;
+  height: 415px;
+  overflow: auto;
 }
 
 .fav-list ul .item {
@@ -81,7 +111,7 @@ button:focus {
 }
 
 .fav-list ul .item:hover {
-  color: white;
+  color: highlightText;
   background: #0084ff;
 }
 
@@ -155,4 +185,3 @@ button:focus {
   outline: none;
   border: 1px solid #56a8c4;
 }
-/*# sourceMappingURL=settings.css.map */
