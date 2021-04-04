@@ -21,7 +21,6 @@ export const WINDOW_OPTIONS: {[key: string]: Electron.BrowserWindowConstructorOp
     width: 650,
     height: 500,
     backgroundColor: '#fff',
-    resizable: false,
     modal: true
   }
 };
