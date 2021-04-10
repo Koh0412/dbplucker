@@ -92,7 +92,6 @@ export class MySQL {
    * @returns
    */
   async collectInfo(setting: IDatabaseSetting) {
-    this.mysqlVersion();
     const info: IDatabaseInfoCollection = {
       schemataList: await this.showDatabaseInfo(setting.database),
       version: await this.mysqlVersion(),
