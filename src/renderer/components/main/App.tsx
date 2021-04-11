@@ -29,6 +29,14 @@ class App extends React.Component<{}, AppState> {
   }
 
   /**
+   * データベース名を取得し送信
+   * @param e
+   */
+  clickDatabaseName(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    ipcRenderer.send('send-db', e.currentTarget.dataset.database);
+  }
+
+  /**
    * データベース名を表示する要素
    */
   get databaseElements() {
@@ -36,7 +44,7 @@ class App extends React.Component<{}, AppState> {
       return (
         <li key={i}>
           <div className="icon"><i className="fas fa-database"></i></div>
-          <div>{schemata.name}: {schemata.collation}</div>
+          <div data-database={schemata.name} onClick={this.clickDatabaseName.bind(this)}>{schemata.name}: {schemata.collation}</div>
         </li>
       );
     });
