@@ -1,5 +1,5 @@
 import { BrowserWindow } from "electron";
-import { SystemUtil } from "../../utils/SystemUtil";
+import { createHtmlPath } from "../../utils/Functions";
 
 export class BaseWindow {
   private windowInstance: BrowserWindow | null = null;
@@ -25,6 +25,6 @@ export class BaseWindow {
    * @param name
    */
   setUsingHtmlName(name: string) {
-    this.windowInstance?.loadURL(SystemUtil.createHtmlPath(name));
+    this.windowInstance?.loadURL(createHtmlPath(name));
   }
 }

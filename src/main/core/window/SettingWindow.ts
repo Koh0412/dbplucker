@@ -4,7 +4,7 @@ import { storeKeys } from "../../../common/storeKeys";
 import { WINDOW_OPTIONS } from "../../constants/windowOption";
 import { MySQL } from "../../lib/MySQL";
 import { store } from "../../lib/Store";
-import { SystemUtil } from "../../utils/SystemUtil";
+import { envHandler } from "../../utils/Functions";
 import { BaseWindow } from "./BaseWindow";
 
 export class SettingWindow extends BaseWindow {
@@ -20,11 +20,13 @@ export class SettingWindow extends BaseWindow {
       this.window?.webContents.send(ipcKeys.SEND_FAV, favList);
     });
 
-    // 本番環境の場合
-    if (!SystemUtil.isDevelopment()) {
-      this.window?.setMenu(null);
-      this.window?.setResizable(false);
-    }
+    envHandler({
+      // 本番環境の場合
+      production: () => {
+        this.window?.setMenu(null);
+        this.window?.setResizable(false);
+      }
+    });
   }
 
   /**
