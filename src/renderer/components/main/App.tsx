@@ -17,6 +17,11 @@ class App extends React.Component<{}, AppState> {
 
   componentDidMount() {
     ipcRenderer.on(ipcKeys.DBINFO, this.dbinfoHandler.bind(this));
+    ipcRenderer.on('show-table', (e, tableNames: string[]) => {
+      tableNames.forEach((table) => {
+        console.log(table);
+      });
+    });
   }
 
   /**

@@ -46,10 +46,14 @@ export class MySQL {
    * クエリを実行する
    * @param query
    */
-  async execute<T = any>(query: string): Promise<T> {
+  async execute<T = any[]>(query: string): Promise<T> {
     return this.connection.then(async (connect) => {
-      const result = await connect.query(query);
-      return result
+      try {
+        const res = await connect.query(query);
+        return res;
+      } catch (err) {
+        dialog.showErrorBox('SQL ERROR', `${err.sqlMessage}\n\n your SQL: ${err.sql}`);
+      }
     });
   }
 
