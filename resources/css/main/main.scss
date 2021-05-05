@@ -2,20 +2,74 @@
 
 body {
   margin: 0;
-  padding: .5rem;
   font-size: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0;
+  height: 100%;
+
 }
 
-.dark {
-  * {
-    color: #c6cbd1;
+#app {
+  height: 100%;
+}
+
+main {
+  display: flex;
+  height: 100%;
+
+  &.dark {
+    * {
+      color: #c6cbd1;
+    }
   }
 }
 
 .database-list {
   padding: 0;
-  li {
-    display: flex;
+  overflow: auto;
+  margin: 0;
+  width: 300px;
+  padding: .5rem 0;
+  background: #2b313a;
+  user-select: none;
+
+  .database {
+    .table-list {
+      padding: 0;
+      display: none;
+
+      &.open {
+        display: block;
+      }
+
+      li {
+        padding-left: 30px;
+        cursor: pointer;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        &:hover {
+          background: #39414d;
+        }
+
+        i.fa-table {
+          color: #e1bb66;
+          margin-right: .5rem;
+        }
+      }
+    }
+
+    .name {
+      padding: 0 .5rem;
+      cursor: pointer;
+      display: flex;
+      &:hover {
+        background: #39414d;
+      }
+    }
 
     .icon {
       margin-right: .5rem;

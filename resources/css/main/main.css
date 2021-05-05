@@ -33,6 +33,14 @@ button:focus {
   color: #ccc;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4b627080;
+}
+
 /** components **/
 .btn-primary {
   padding: 3px 0;
@@ -76,28 +84,85 @@ button:focus {
 
 body {
   margin: 0;
-  padding: .5rem;
   font-size: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0;
+  height: 100%;
 }
 
-.dark * {
+#app {
+  height: 100%;
+}
+
+main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+}
+
+main.dark * {
   color: #c6cbd1;
 }
 
 .database-list {
   padding: 0;
+  overflow: auto;
+  margin: 0;
+  width: 300px;
+  padding: .5rem 0;
+  background: #2b313a;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
-.database-list li {
+.database-list .database .table-list {
+  padding: 0;
+  display: none;
+}
+
+.database-list .database .table-list.open {
+  display: block;
+}
+
+.database-list .database .table-list li {
+  padding-left: 30px;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.database-list .database .table-list li:hover {
+  background: #39414d;
+}
+
+.database-list .database .table-list li i.fa-table {
+  color: #e1bb66;
+  margin-right: .5rem;
+}
+
+.database-list .database .name {
+  padding: 0 .5rem;
+  cursor: pointer;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.database-list li .icon {
+.database-list .database .name:hover {
+  background: #39414d;
+}
+
+.database-list .database .icon {
   margin-right: .5rem;
 }
 
-.database-list li .icon i.fa-database {
+.database-list .database .icon i.fa-database {
   color: #5eedff;
 }

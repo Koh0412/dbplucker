@@ -29,5 +29,10 @@ declare global {
     collation: string;
   }
 
+  interface IDatabaseProps {
+    id: string;
+    name: string;
+  }
+
   let ipcRenderer = window.ipcRenderer;
 }

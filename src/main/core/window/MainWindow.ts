@@ -16,24 +16,7 @@ export class MainWindow extends BaseWindow {
     super(WINDOW_OPTIONS.main);
     this.setUsingHtmlName('index');
 
-    // TODO: 仮
-    ipcMain.on('send-db', async (e, database: string) => {
-      const query = queryBuilder.select({
-        table: 'information_schema.TABLES',
-        columns: {
-          TABLE_NAME: 'tableName'
-        }
-      }).where({
-        TABLE_SCHEMA: database
-      }).build();
-      const data = await this.mysql?.execute(query);
-
-      const tableNames = data?.map((row) => {
-        return row.tableName;
-      });
-
-      this.window?.webContents.send('show-table', tableNames);
-    });
+    ipcMain.on(ipcKeys.SEND_DB, this.showTables.bind(this));
 
     this.window?.on('ready-to-show', this.readyToShow.bind(this));
     this.window?.on('closed', this.closed.bind(this));
@@ -74,5 +57,28 @@ export class MainWindow extends BaseWindow {
     if (this.settings) {
       this.settings.window?.close();
     }
+  }
+
+  /**
+   * テーブル名の表示
+   * @param e
+   * @param database
+   */
+  async showTables(e: Electron.IpcMainEvent, database: IDatabaseProps) {
+    const selectQuery = queryBuilder.select({
+      table: 'information_schema.TABLES',
+      columns: {
+        TABLE_NAME: 'tableName'
+      }
+    });
+
+    const query = selectQuery.where({ TABLE_SCHEMA: database.name }).build();
+
+    const data = await this.mysql?.execute(query);
+    const tableNames = data?.map((row) => {
+      return row.tableName as string;
+    });
+
+    this.window?.webContents.send(ipcKeys.SHOW_TABLES, { id: database.id, tableNames });
   }
 }

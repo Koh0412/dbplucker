@@ -23,6 +23,14 @@ button {
   color: #ccc;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4b627080;
+}
+
 /** components **/
 
 .btn-primary {
