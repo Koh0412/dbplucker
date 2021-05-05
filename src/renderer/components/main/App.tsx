@@ -129,7 +129,9 @@ class App extends React.Component<{}, AppState> {
         {!this.state.dbinfo && (
           <div>No database is connected</div>
         )}
-        <ul className="database-list">{this.databaseElements}</ul>
+        {this.state.dbinfo && (
+          <ul className="database-list">{this.databaseElements}</ul>
+        )}
       </main>
     );
   }
