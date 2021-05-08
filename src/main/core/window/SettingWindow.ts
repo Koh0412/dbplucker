@@ -2,7 +2,7 @@ import { ipcMain } from "electron";
 import { ipcKeys } from "../../../common/ipcKeys";
 import { storeKeys } from "../../../common/storeKeys";
 import { WINDOW_OPTIONS } from "../../constants/windowOption";
-import { MySQL } from "../../lib/MySQL";
+import { mysql } from "../../lib/MySQL";
 import { store } from "../../lib/Store";
 import { envHandler } from "../../utils/Functions";
 import { BaseWindow } from "./BaseWindow";
@@ -43,9 +43,9 @@ export class SettingWindow extends BaseWindow {
    * @param setting
    */
   async connectDatabase(e: Electron.IpcMainEvent, setting: IDatabaseSetting) {
-    const mysql = new MySQL(setting);
+    mysql.createConnection(setting);
 
-    mysql.connection.then(async () => {
+    mysql.connection?.then(async () => {
       const parent = this.window?.getParentWindow();
       this.window?.close();
 

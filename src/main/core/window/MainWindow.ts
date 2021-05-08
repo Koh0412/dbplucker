@@ -2,15 +2,13 @@ import { ipcMain } from "electron";
 import { ipcKeys } from "../../../common/ipcKeys";
 import { storeKeys } from "../../../common/storeKeys";
 import { WINDOW_OPTIONS } from "../../constants/windowOption";
-import { MySQL } from "../../lib/MySQL";
+import { mysql } from "../../lib/MySQL";
 import { store } from "../../lib/Store";
-import { queryBuilder } from "../../utils/QueryBuilder";
 import { BaseWindow } from "./BaseWindow";
 import { SettingWindow } from "./SettingWindow";
 
 export class MainWindow extends BaseWindow {
   private settings: BaseWindow | null = null;
-  private mysql: MySQL | null = null;
 
   constructor() {
     super(WINDOW_OPTIONS.main);
@@ -36,10 +34,10 @@ export class MainWindow extends BaseWindow {
     const connectInfo = store.get(storeKeys.CONNECT_INFO) as IDatabaseSetting;
 
     if (connectInfo) {
-      this.mysql = new MySQL(connectInfo);
+      mysql.createConnection(connectInfo);
 
-      this.mysql.connection.then(async () => {
-        const info = await this.mysql?.collectInfo(connectInfo);
+      mysql.connection?.then(async () => {
+        const info = await mysql.collectInfo(connectInfo);
         this.window?.webContents.send(ipcKeys.DBINFO, info);
       });
     } else {
@@ -65,20 +63,7 @@ export class MainWindow extends BaseWindow {
    * @param database
    */
   async showTables(e: Electron.IpcMainEvent, database: IDatabaseProps) {
-    const selectQuery = queryBuilder.select({
-      table: 'information_schema.TABLES',
-      columns: {
-        TABLE_NAME: 'tableName'
-      }
-    });
-
-    const query = selectQuery.where({ TABLE_SCHEMA: database.name }).build();
-
-    const data = await this.mysql?.execute(query);
-    const tableNames = data?.map((row) => {
-      return row.tableName as string;
-    });
-
+    const tableNames = await mysql.getTableNames(database);
     this.window?.webContents.send(ipcKeys.SHOW_TABLES, { id: database.id, tableNames });
   }
 }

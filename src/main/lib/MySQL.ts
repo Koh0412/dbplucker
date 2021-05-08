@@ -1,4 +1,4 @@
-import mysql from 'promise-mysql';
+import promiseMysql from 'promise-mysql';
 import * as Bluebird from 'bluebird';
 import { dialog } from 'electron';
 import { queryBuilder } from '../utils/QueryBuilder';
@@ -6,12 +6,26 @@ import { store } from './Store';
 import { storeKeys } from '../../common/storeKeys';
 
 export class MySQL {
-  private _connection: Bluebird<mysql.Connection>;
+  private _connection: Bluebird<promiseMysql.Connection> | undefined;
+  private setting: IDatabaseSetting | undefined;
 
-  constructor(
-    private setting: IDatabaseSetting
-  ) {
-    this._connection = mysql.createConnection({
+  constructor() {}
+
+  /**
+   * コネクションを取得
+   */
+  get connection(): Bluebird<promiseMysql.Connection> | undefined {
+    return this._connection;
+  }
+
+  /**
+   * データベースへの接続を作る
+   * @param setting
+   */
+  createConnection(setting: IDatabaseSetting) {
+    this.setting = setting;
+
+    this._connection = promiseMysql.createConnection({
       host: this.setting.host,
       user: this.setting.username,
       password: this.setting.password,
@@ -20,11 +34,9 @@ export class MySQL {
       multipleStatements: true
     });
 
-    this.connection.then(() => {
-      store.set(storeKeys.CONNECT_INFO, setting);
-    });
-
-    this.connection.catch((err) => {
+    this._connection.then(() => {
+      store.set(storeKeys.CONNECT_INFO, this.setting);
+    }).catch((err) => {
       const msg = err.sqlMessage;
 
       if (msg) {
@@ -36,18 +48,11 @@ export class MySQL {
   }
 
   /**
-   * コネクションを取得
-   */
-  get connection(): Bluebird<mysql.Connection> {
-    return this._connection;
-  }
-
-  /**
    * クエリを実行する
    * @param query
    */
   async execute<T = any[]>(query: string): Promise<T> {
-    return this.connection.then(async (connect) => {
+    return this.connection?.then(async (connect) => {
       try {
         const res = await connect.query(query);
         return res;
@@ -83,6 +88,29 @@ export class MySQL {
   }
 
   /**
+   * テーブル名の取得
+   * @param database
+   * @returns
+   */
+  async getTableNames(database: IDatabaseProps) {
+    const selectQuery = queryBuilder.select({
+      table: 'information_schema.TABLES',
+      columns: {
+        TABLE_NAME: 'tableName'
+      }
+    });
+
+    const query = selectQuery.where({ TABLE_SCHEMA: database.name }).build();
+
+    const data = await this.execute(query);
+    const tableNames = data?.map((row) => {
+      return row.tableName as string;
+    });
+
+    return tableNames;
+  }
+
+  /**
    * mysqlのバージョン取得
    */
   async mysqlVersion() {
@@ -104,3 +132,5 @@ export class MySQL {
     return info;
   }
 }
+
+export const mysql = new MySQL();
