@@ -101,7 +101,7 @@ main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: calc(100% - 25px);
+  height: calc(100% - 32px);
 }
 
 main.dark * {
@@ -109,12 +109,67 @@ main.dark * {
 }
 
 .title-bar {
-  height: 25px;
   color: #c6cbd1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background: #313b46;
+  background: #1e2226;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-app-region: drag;
+}
+
+.title-bar .menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px;
+}
+
+.title-bar .menu .icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-right: .5rem;
+}
+
+.title-bar .menu .menu-item {
+  margin: 0;
+  padding: 0;
+  padding-right: .5rem;
+}
+
+.title-bar .btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.title-bar .btns .title-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px 12px;
+  -webkit-app-region: no-drag;
+}
+
+.title-bar .btns .title-btn:hover {
+  background: #343b43;
+}
+
+.title-bar .btns .title-btn.close:hover {
+  background: #d21e1e;
 }
 
 .database-list {

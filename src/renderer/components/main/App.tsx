@@ -127,7 +127,7 @@ class App extends React.Component<{}, AppState> {
 
     return (
       <>
-        <TitleBar />
+        <TitleBar color="#c6cbd1" bgColor="#1e2226" />
         <main className={this.state.mode}>
           {!this.state.dbinfo && (
             <div>No database is connected</div>

@@ -16,6 +16,7 @@ export const WINDOW_OPTIONS: {[key: string]: Electron.BrowserWindowConstructorOp
     title: 'dbplucker',
     backgroundColor: '#262d34',
     titleBarStyle: 'hidden',
+    frame: false,
   },
   settings: {
     ...DEFAULT_WINDOW_OPTIONS,

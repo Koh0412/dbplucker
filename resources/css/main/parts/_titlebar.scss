@@ -1,6 +1,45 @@
 .title-bar {
-  height: $title-bar-height;
   color: #c6cbd1;
   display: flex;
-  background: #313b46;
+  background: #1e2226;
+  justify-content: space-between;
+  user-select: none;
+  -webkit-app-region: drag;
+
+  .menu {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+
+    .icon {
+      display: flex;
+      padding-right: .5rem;
+    }
+
+    .menu-item {
+      margin: 0;
+      padding: 0;
+      padding-right: .5rem;
+    }
+  }
+
+  .btns {
+    display: flex;
+
+    .title-btn {
+      display: flex;
+      align-items: center;
+      padding: 5px 12px;
+      -webkit-app-region: no-drag;
+      &:hover {
+        background: #343b43;
+      }
+
+      &.close {
+        &:hover {
+          background: #d21e1e;
+        }
+      }
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { ipcMain, Menu } from "electron";
+import { ipcMain } from "electron";
 import { ipcKeys } from "../../../common/ipcKeys";
 import { storeKeys } from "../../../common/storeKeys";
 import { WINDOW_OPTIONS } from "../../constants/windowOption";
@@ -16,8 +16,16 @@ export class MainWindow extends BaseWindow {
 
     ipcMain.on(ipcKeys.SEND_DB, this.showTables.bind(this));
 
+    ipcMain.on(ipcKeys.WIN_CLOSE, () => this.window?.close());
+    ipcMain.on(ipcKeys.WIN_MAX, () => this.window?.maximize());
+    ipcMain.on(ipcKeys.WIN_MIN, () => this.window?.minimize());
+    ipcMain.on(ipcKeys.WIN_RESTORE, () => this.window?.restore());
+
     this.window?.on('ready-to-show', this.readyToShow.bind(this));
     this.window?.on('closed', this.closed.bind(this));
+    this.window?.on('page-title-updated', () => {
+      this.window?.webContents.send(ipcKeys.TITLE, this.window?.webContents.getTitle());
+    });
   }
 
   /**
