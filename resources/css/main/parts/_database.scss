@@ -1,0 +1,63 @@
+$width-database-list: 300px;
+
+$color-table-icon: #e1bb66;
+$color-database-icon: #5eedff;
+$color-hover-name: #39414d;
+
+$bg-database-list: #2b313a;
+
+.database-list {
+  padding: 0;
+  overflow: auto;
+  margin: 0;
+  width: $width-database-list;
+  padding: .5rem 0;
+  background: $bg-database-list;
+  user-select: none;
+
+  .database {
+    .table-list {
+      padding: 0;
+      display: none;
+
+      &.open {
+        display: block;
+      }
+
+      li {
+        padding-left: 30px;
+        cursor: pointer;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+        &:hover {
+          background: $color-hover-name;
+        }
+
+        i.fa-table {
+          color: $color-table-icon;
+          margin-right: .5rem;
+        }
+      }
+    }
+
+    .name {
+      padding: 0 .5rem;
+      cursor: pointer;
+      display: flex;
+
+      &:hover {
+        background: $color-hover-name;
+      }
+    }
+
+    .icon {
+      margin-right: .5rem;
+
+      i.fa-database {
+        color: $color-database-icon;
+      }
+    }
+  }
+}

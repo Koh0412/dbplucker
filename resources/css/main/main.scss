@@ -1,5 +1,7 @@
 @import '../common/global';
 
+$title-bar-height: 25px;
+
 body {
   margin: 0;
   font-size: 15px;
@@ -9,7 +11,6 @@ body {
   width: 100%;
   padding: 0;
   height: 100%;
-
 }
 
 #app {
@@ -18,7 +19,7 @@ body {
 
 main {
   display: flex;
-  height: 100%;
+  height: calc(100% - #{$title-bar-height});
 
   &.dark {
     * {
@@ -27,56 +28,5 @@ main {
   }
 }
 
-.database-list {
-  padding: 0;
-  overflow: auto;
-  margin: 0;
-  width: 300px;
-  padding: .5rem 0;
-  background: #2b313a;
-  user-select: none;
-
-  .database {
-    .table-list {
-      padding: 0;
-      display: none;
-
-      &.open {
-        display: block;
-      }
-
-      li {
-        padding-left: 30px;
-        cursor: pointer;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        &:hover {
-          background: #39414d;
-        }
-
-        i.fa-table {
-          color: #e1bb66;
-          margin-right: .5rem;
-        }
-      }
-    }
-
-    .name {
-      padding: 0 .5rem;
-      cursor: pointer;
-      display: flex;
-      &:hover {
-        background: #39414d;
-      }
-    }
-
-    .icon {
-      margin-right: .5rem;
-
-      i.fa-database {
-        color: #5eedff;
-      }
-    }
-  }
-}
+@import './parts/titlebar';
+@import './parts/database';

@@ -1,4 +1,4 @@
-import { ipcMain } from "electron";
+import { ipcMain, Menu } from "electron";
 import { ipcKeys } from "../../../common/ipcKeys";
 import { storeKeys } from "../../../common/storeKeys";
 import { WINDOW_OPTIONS } from "../../constants/windowOption";

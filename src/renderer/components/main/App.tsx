@@ -1,5 +1,6 @@
 import React from 'react';
 import { ipcKeys } from '../../../common/ipcKeys';
+import TitleBar from './TitleBar';
 
 interface AppState {
   mode: string;
@@ -125,14 +126,17 @@ class App extends React.Component<{}, AppState> {
     }
 
     return (
-      <main className={this.state.mode}>
-        {!this.state.dbinfo && (
-          <div>No database is connected</div>
-        )}
-        {this.state.dbinfo && (
-          <ul className="database-list">{this.databaseElements}</ul>
-        )}
-      </main>
+      <>
+        <TitleBar />
+        <main className={this.state.mode}>
+          {!this.state.dbinfo && (
+            <div>No database is connected</div>
+          )}
+          {this.state.dbinfo && (
+            <ul className="database-list">{this.databaseElements}</ul>
+          )}
+        </main>
+      </>
     );
   }
 }

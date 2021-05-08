@@ -101,11 +101,20 @@ main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 100%;
+  height: calc(100% - 25px);
 }
 
 main.dark * {
   color: #c6cbd1;
+}
+
+.title-bar {
+  height: 25px;
+  color: #c6cbd1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: #313b46;
 }
 
 .database-list {
