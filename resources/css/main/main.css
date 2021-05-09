@@ -101,7 +101,7 @@ main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: calc(100% - 32px);
+  height: calc(100% - 33px);
 }
 
 main.dark * {
@@ -122,6 +122,7 @@ main.dark * {
       -ms-user-select: none;
           user-select: none;
   -webkit-app-region: drag;
+  border-bottom: 1px solid #2f3d45;
 }
 
 .title-bar .menu {
@@ -221,6 +222,10 @@ main.dark * {
 
 .database-list .database .name:hover {
   background: #39414d;
+}
+
+.database-list .database .name .chevron svg:hover {
+  fill: #0079ff;
 }
 
 .database-list .database .icon {

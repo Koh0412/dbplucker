@@ -1,5 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { ipcKeys } from '../../../common/ipcKeys';
+import { UtilFunc } from '../../utils/UtilFunc';
 import TitleBar from './TitleBar';
 
 interface AppState {
@@ -28,7 +30,7 @@ class App extends React.Component<{}, AppState> {
       return (
         <li className="database" key={i}>
           <div
-          className="name"
+            className="name"
             data-database={schemata.name}
             onClick={this.clickDatabaseName.bind(this)}
           >
@@ -64,7 +66,7 @@ class App extends React.Component<{}, AppState> {
    */
   clickDatabaseName(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     const parentElement = e.currentTarget.parentElement;
-    const tableListElement = parentElement?.children.item(1);
+    const tableListElement = UtilFunc.getChildrenByClass(parentElement, 'table-list').shift();
 
     const props: IDatabaseProps = {
       id: tableListElement?.id as string,
@@ -73,7 +75,9 @@ class App extends React.Component<{}, AppState> {
 
     tableListElement?.classList.toggle('open');
 
-    ipcRenderer.send(ipcKeys.SEND_DB, props);
+    if (tableListElement?.children.length === 0) {
+      ipcRenderer.send(ipcKeys.SEND_DB, props);
+    }
   }
 
   /**
@@ -82,24 +86,18 @@ class App extends React.Component<{}, AppState> {
    * @param tableNames
    */
   showTables(e: Electron.IpcRendererEvent, props: { id: string; tableNames: string[] | undefined }) {
-    const currentElement = this.tableRefs.find((ref) => {
+    const target = this.tableRefs.find((ref) => {
       return ref.current?.id === props.id;
     })?.current;
 
-    if (currentElement?.children.length === 0) {
-      const item = props.tableNames?.map((table) => {
-        const li = document.createElement('li');
-        li.textContent = table;
-
-        const icon = document.createElement('i');
-        icon.classList.add('fas', 'fa-table');
-
-        li.prepend(icon);
-
-        return li;
+    if (target?.children.length === 0) {
+      const tableitems = props.tableNames?.map((table, i) => {
+        return (
+          <li key={i}><i className="fas fa-table"></i>{table}</li>
+        );
       });
 
-      item?.forEach((i) => currentElement?.appendChild(i));
+      ReactDOM.render(<>{tableitems}</>, target);
     }
   }
 
@@ -121,6 +119,7 @@ class App extends React.Component<{}, AppState> {
    * @returns
    */
   render(): JSX.Element {
+    console.log(this.state.dbinfo);
     if (this.state.dbinfo) {
       document.title = `(${this.state.dbinfo.version}) - dbplucker`;
     }
@@ -129,12 +128,7 @@ class App extends React.Component<{}, AppState> {
       <>
         <TitleBar color="#c6cbd1" bgColor="#1e2226" />
         <main className={this.state.mode}>
-          {!this.state.dbinfo && (
-            <div>No database is connected</div>
-          )}
-          {this.state.dbinfo && (
-            <ul className="database-list">{this.databaseElements}</ul>
-          )}
+          <ul className="database-list">{this.databaseElements}</ul>
         </main>
       </>
     );

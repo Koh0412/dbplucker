@@ -46,9 +46,14 @@ $bg-database-list: #2b313a;
       padding: 0 .5rem;
       cursor: pointer;
       display: flex;
-
       &:hover {
         background: $color-hover-name;
+      }
+
+      .chevron {
+        svg:hover {
+          fill: #0079ff;
+        }
       }
     }
 
