@@ -119,7 +119,6 @@ class App extends React.Component<{}, AppState> {
    * @returns
    */
   render(): JSX.Element {
-    console.log(this.state.dbinfo);
     if (this.state.dbinfo) {
       document.title = `(${this.state.dbinfo.version}) - dbplucker`;
     }
