@@ -1,0 +1,32 @@
+.data-table {
+  display: flex;
+  border: 1px solid;
+
+  .column {
+    min-width: 70px;
+    border-right: 1px solid;
+    &:last-child {
+      border-right: none;
+    }
+
+    .column-name {
+      border-bottom: 1px solid;
+      background: #3a485d;
+      padding: 0 .5rem;
+    }
+
+    .record-list {
+      margin: 0;
+      padding: 0;
+
+      li {
+        height: 25px;
+        padding: 0 .5rem;
+        border-bottom: 1px solid;
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}

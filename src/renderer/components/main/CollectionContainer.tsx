@@ -21,36 +21,43 @@ class CollectionContainer extends React.Component<{}, CollectionContainerState> 
       let data: any = {};
 
       records.forEach((record) => {
-        const keys = Object.keys(record);
+        const columns = Object.keys(record);
         const values = Object.values(record);
 
-        for (let i = 0; i < keys.length; i++) {
-          if (!data[keys[i]]) {
-            data[keys[i]] = [];
+        columns.forEach((column, i) => {
+          if (!data[column]) {
+            data[column] = [];
           }
-          data[keys[i]].push(values[i]);
-        }
+
+          data[column].push(values[i]);
+        });
       });
 
       this.setState({ data });
     });
   }
 
-  get testElement() {
-    const list: JSX.Element[] = [];
+  /**
+   * テーブルのレコードを表形式で出力
+   */
+  get tableDataElement() {
+    const dataList: JSX.Element[] = [];
 
-    const keys = Object.keys(this.state.data);
-    const values = Object.values(this.state.data);
+    Object.keys(this.state.data).forEach((column, i) => {
+      const records = this.state.data[column] as any[];
+      const recordListElement = records.map((record, i) => {
+        return (<li key={i}>{record}</li>);
+      });
 
-    for (let i = 0; i < keys.length; i++) {
-      list.push(
-        <div key={i}>{keys[i]}</div>
+      dataList.push(
+        <div className="column" key={i}>
+          <div className="column-name">{column}</div>
+          <ul className="record-list">{recordListElement}</ul>
+        </div>
       );
-    }
+    });
 
-    return (
-      <div>{list}</div>
-    );
+    return dataList;
   }
 
   /**
@@ -59,7 +66,9 @@ class CollectionContainer extends React.Component<{}, CollectionContainerState> 
    */
   render() {
     return (
-      <div>{this.testElement}</div>
+      <div>
+        <div className="data-table">{this.tableDataElement}</div>
+      </div>
     );
   }
 }

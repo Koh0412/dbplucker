@@ -82,6 +82,11 @@ class QueryBuilder {
 
     return this;
   }
+
+  limit(start: number, end: number) {
+    this.query += ` LIMIT ${start}, ${end}`;
+    return this;
+  }
 }
 
 export const queryBuilder = new QueryBuilder();

@@ -116,9 +116,10 @@ export class MySQL {
    * @returns
    */
   async getTableRecords(props: { table: string; database: string; }) {
+    // TODO: 仮limit
     const query = queryBuilder.select({
       table: `${props.database}.${props.table}`,
-    }).build();
+    }).limit(0, 50).build();
 
     return await this.execute(query);
   }
