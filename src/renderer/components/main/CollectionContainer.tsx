@@ -43,7 +43,9 @@ class CollectionContainer extends React.Component<{}, CollectionContainerState> 
     const values = Object.values(this.state.data);
 
     for (let i = 0; i < keys.length; i++) {
-      list.push(<div key={i}>{keys[i]}</div>);
+      list.push(
+        <div key={i}>{keys[i]}</div>
+      );
     }
 
     return (
