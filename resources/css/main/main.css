@@ -184,6 +184,7 @@ main.dark * {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  resize: horizontal;
 }
 
 .database-list .database .table-list {

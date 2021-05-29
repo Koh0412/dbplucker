@@ -64,11 +64,20 @@ class DatabaseList extends React.Component<DatabaseListProps> {
   }
 
   /**
+   * テーブル名を取得し送信
+   * @param e
+   */
+  clickTableName(e: React.MouseEvent<HTMLLIElement, MouseEvent>) {
+    const dataset = e.currentTarget.dataset;
+    ipcRenderer.send(ipcKeys.SEND_TABLE, { table: dataset.table, database: dataset.database });
+  }
+
+  /**
    * テーブル名を表示する
    * @param e
    * @param tableNames
    */
-  showTables(e: Electron.IpcRendererEvent, props: { id: string; tableNames: string[] | undefined }) {
+  showTables(e: Electron.IpcRendererEvent, props: IShowTableProps) {
     const target = this.tableRefs.find((ref) => {
       return ref.current?.id === props.id;
     })?.current;
@@ -76,7 +85,14 @@ class DatabaseList extends React.Component<DatabaseListProps> {
     if (target?.children.length === 0) {
       const tableitems = props.tableNames?.map((table, i) => {
         return (
-          <li key={i}><i className="fas fa-table"></i>{table}</li>
+          <li
+            key={i}
+            data-table={table}
+            data-database={props.database}
+            onClick={this.clickTableName.bind(this)}
+          >
+            <i className="fas fa-table"></i>{table}
+          </li>
         );
       });
 

@@ -14,6 +14,7 @@ $bg-database-list: #2b313a;
   padding: .5rem 0;
   background: $bg-database-list;
   user-select: none;
+  resize: horizontal;
 
   .database {
     .table-list {

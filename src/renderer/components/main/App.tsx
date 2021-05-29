@@ -1,5 +1,6 @@
 import React from 'react';
 import { ipcKeys } from '../../../common/ipcKeys';
+import CollectionContainer from './CollectionContainer';
 import DatabaseList from './DatabaseList';
 import TitleBar from './TitleBar';
 
@@ -47,6 +48,7 @@ class App extends React.Component<{}, AppState> {
         <TitleBar color="#c6cbd1" bgColor="#1e2226" />
         <main className={this.state.mode}>
           <DatabaseList dbinfo={this.state.dbinfo} />
+          <CollectionContainer />
         </main>
       </>
     );

@@ -111,6 +111,19 @@ export class MySQL {
   }
 
   /**
+   * テーブルのレコードを取得
+   * @param props
+   * @returns
+   */
+  async getTableRecords(props: { table: string; database: string; }) {
+    const query = queryBuilder.select({
+      table: `${props.database}.${props.table}`,
+    }).build();
+
+    return await this.execute(query);
+  }
+
+  /**
    * mysqlのバージョン取得
    */
   async mysqlVersion() {

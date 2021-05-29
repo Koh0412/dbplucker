@@ -15,6 +15,7 @@ export class MainWindow extends BaseWindow {
     this.setUsingHtmlName('index');
 
     ipcMain.on(ipcKeys.SEND_DB, this.showTables.bind(this));
+    ipcMain.on(ipcKeys.SEND_TABLE, this.showTableRecords.bind(this));
 
     ipcMain.on(ipcKeys.WIN_CLOSE, () => this.window?.close());
     ipcMain.on(ipcKeys.WIN_MAX, () => this.window?.maximize());
@@ -72,6 +73,22 @@ export class MainWindow extends BaseWindow {
    */
   async showTables(e: Electron.IpcMainEvent, database: IDatabaseProps) {
     const tableNames = await mysql.getTableNames(database);
-    this.window?.webContents.send(ipcKeys.SHOW_TABLES, { id: database.id, tableNames });
+    const props: IShowTableProps = {
+      id: database.id,
+      tableNames,
+      database: database.name,
+    };
+
+    this.window?.webContents.send(ipcKeys.SHOW_TABLES, props);
+  }
+
+  /**
+   * レコードの表示
+   * @param e
+   * @param props
+   */
+  async showTableRecords(e: Electron.IpcMainEvent, props: { table: string; database: string; }) {
+    const records = await mysql.getTableRecords(props);
+    this.window?.webContents.send(ipcKeys.SHOW_RECORDS, records);
   }
 }

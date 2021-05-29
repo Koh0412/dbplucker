@@ -34,5 +34,11 @@ declare global {
     name: string;
   }
 
+  interface IShowTableProps {
+    id: string;
+    tableNames: string[] | undefined;
+    database: string;
+  }
+
   let ipcRenderer = window.ipcRenderer;
 }
