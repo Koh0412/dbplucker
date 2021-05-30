@@ -82,6 +82,12 @@ button:focus {
   border: 1px solid #56a8c4;
 }
 
+.three-point-leader {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 /** global **/
 body {
   background-color: #ebebeb;

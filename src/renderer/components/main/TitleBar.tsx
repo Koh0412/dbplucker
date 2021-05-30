@@ -59,7 +59,7 @@ class TitleBar extends React.Component<TitleBarProps, TitleBarState> {
         <div className="menu">
           <span className="icon"><img src="../resources/images/favicon.ico" width="20" /></span>
           {/*<ul className="menu-item"> menu </ul>*/}
-          <span className="title">{this.state.title}</span>
+          <span className="title three-point-leader">{this.state.title}</span>
         </div>
         <div className="btns">
           <div className="title-btn" onClick={() => ipcRenderer.send(ipcKeys.WIN_MIN)}>

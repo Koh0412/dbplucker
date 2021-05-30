@@ -13,6 +13,7 @@ class CollectionContainer extends React.Component<{}, CollectionContainerState> 
   constructor(props: {}) {
     super(props);
 
+    // TODO: 切り替えは一先ずタブ方式で this.state.tab=1 this.contentElements[this.state.tab]
     this.state = {
       data: {},
     };
@@ -32,7 +33,7 @@ class CollectionContainer extends React.Component<{}, CollectionContainerState> 
       const records = this.state.data[column];
 
       const recordListElement = records.map((record, i) => {
-        if (record !== null && typeof (record) === "object") {
+        if (record !== null && typeof (record) === 'object') {
           const date = new Date(record);
           record = `${date.toLocaleDateString().replace(/\//gi, '-')} ${date.toLocaleTimeString()}`;
         }
@@ -78,11 +79,13 @@ class CollectionContainer extends React.Component<{}, CollectionContainerState> 
    */
   render() {
     return (
-      <div className="container">
-        {Object.keys(this.state.data).length > 0 && (
-          <div className="data-table">{this.tableDataElement}</div>
-        )}
-      </div>
+      <>
+        <div className="container">
+          {Object.keys(this.state.data).length > 0 && (
+            <div className="data-table">{this.tableDataElement}</div>
+          )}
+        </div>
+      </>
     );
   }
 }

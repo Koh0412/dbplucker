@@ -69,3 +69,9 @@ button {
     border: 1px solid $bd-form-input;
   }
 }
+
+.three-point-leader {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

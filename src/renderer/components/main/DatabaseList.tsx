@@ -28,7 +28,7 @@ class DatabaseList extends React.Component<DatabaseListProps> {
             onClick={this.clickDatabaseName.bind(this)}
           >
             <div className="icon"><i className="fas fa-database"></i></div>
-            <div>{schemata.name}{/*: {schemata.collation}*/}</div>
+            <div className="three-point-leader">{schemata.name}</div>
           </div>
           <ul className="table-list" id={`database_${i}`} ref={this.tableRefs[i]}></ul>
         </li>

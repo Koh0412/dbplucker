@@ -82,6 +82,12 @@ button:focus {
   border: 1px solid #56a8c4;
 }
 
+.three-point-leader {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   font-size: 15px;
@@ -133,6 +139,7 @@ main.dark * {
       -ms-flex-align: center;
           align-items: center;
   padding: 5px;
+  overflow: hidden;
 }
 
 .title-bar .menu .icon {
@@ -239,7 +246,7 @@ main.dark * {
 
 .container {
   width: 80%;
-  overflow: auto;
+  overflow: overlay;
   height: 70%;
 }
 
@@ -250,17 +257,17 @@ main.dark * {
 }
 
 .container .data-table .column {
-  border-right: 1px solid;
-  border-bottom: 1px solid;
-  border-top: 1px solid;
+  border-right: 1px solid #57606e;
+  border-bottom: 1px solid #57606e;
+  border-top: 1px solid #57606e;
 }
 
 .container .data-table .column:first-child {
-  border-left: 1px solid;
+  border-left: 1px solid #57606e;
 }
 
 .container .data-table .column .column-name {
-  border-bottom: 1px solid;
+  border-bottom: 1px solid #57606e;
   background: #3a485d;
   padding: 0 .5rem;
   position: -webkit-sticky;

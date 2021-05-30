@@ -1,21 +1,23 @@
+$bd-color-table: #57606e;
+
 .container {
   width: 80%;
-  overflow: auto;
+  overflow: overlay;
   height: 70%;
 
   .data-table {
     display: flex;
 
     .column {
-      border-right: 1px solid;
-      border-bottom: 1px solid;
-      border-top: 1px solid;
+      border-right: 1px solid $bd-color-table;
+      border-bottom: 1px solid $bd-color-table;
+      border-top: 1px solid $bd-color-table;
       &:first-child {
-        border-left: 1px solid;
+        border-left: 1px solid $bd-color-table;
       }
 
       .column-name {
-        border-bottom: 1px solid;
+        border-bottom: 1px solid $bd-color-table;
         background: #3a485d;
         padding: 0 .5rem;
         position: sticky;
