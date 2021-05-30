@@ -4,6 +4,7 @@ import { storeKeys } from "../../../common/storeKeys";
 import { WINDOW_OPTIONS } from "../../constants/windowOption";
 import { mysql } from "../../lib/MySQL";
 import { store } from "../../lib/Store";
+import { envHandler } from "../../utils/Functions";
 import { BaseWindow } from "./BaseWindow";
 import { SettingWindow } from "./SettingWindow";
 
@@ -40,6 +41,13 @@ export class MainWindow extends BaseWindow {
    * ウィンドウの準備完了時に処理
    */
   readyToShow() {
+    envHandler({
+      development: () => {
+        this.window?.webContents.openDevTools();
+        this.window?.maximize();
+      }
+    });
+
     const connectInfo = store.get(storeKeys.CONNECT_INFO) as IDatabaseSetting;
 
     if (connectInfo) {

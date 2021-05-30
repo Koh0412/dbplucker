@@ -1,8 +1,12 @@
 import React from "react";
 import { ipcKeys } from "../../../common/ipcKeys";
 
+interface ITableData {
+  [column: string]: (string | number)[];
+}
+
 interface CollectionContainerState {
-  data: any;
+  data: ITableData;
 }
 
 class CollectionContainer extends React.Component<{}, CollectionContainerState> {
@@ -17,47 +21,49 @@ class CollectionContainer extends React.Component<{}, CollectionContainerState> 
    * コンポネントがマウントされた後に実行
    */
   componentDidMount() {
-    ipcRenderer.on(ipcKeys.SHOW_RECORDS, (e, records: any[]) => {
-      let data: any = {};
-
-      records.forEach((record) => {
-        const columns = Object.keys(record);
-        const values = Object.values(record);
-
-        columns.forEach((column, i) => {
-          if (!data[column]) {
-            data[column] = [];
-          }
-
-          data[column].push(values[i]);
-        });
-      });
-
-      this.setState({ data });
-    });
+    ipcRenderer.on(ipcKeys.SHOW_RECORDS, this.rebuildTableData.bind(this));
   }
 
   /**
    * テーブルのレコードを表形式で出力
    */
   get tableDataElement() {
-    const dataList: JSX.Element[] = [];
-
-    Object.keys(this.state.data).forEach((column, i) => {
-      const records = this.state.data[column] as any[];
+    return Object.keys(this.state.data).map((column, i) => {
+      const records = this.state.data[column];
       const recordListElement = records.map((record, i) => {
         return (<li key={i}>{record}</li>);
       });
 
-      dataList.push(
+      return (
         <div className="column" key={i}>
           <div className="column-name">{column}</div>
           <ul className="record-list">{recordListElement}</ul>
         </div>
       );
     });
+  }
 
-    return dataList;
+  /**
+   * データを使い易い形に再構築し保存
+   * @param e
+   * @param records
+   */
+  rebuildTableData(e: Electron.IpcRendererEvent, records: (string | number)[]) {
+    let data: ITableData = {};
+
+    records.forEach((record) => {
+      const columnNames = Object.keys(record);
+      const fields = Object.values(record);
+
+      columnNames.forEach((name, i) => {
+        if (!data[name]) {
+          data[name] = [];
+        }
+        data[name].push(fields[i]);
+      });
+    });
+
+    this.setState({ data });
   }
 
   /**
@@ -67,7 +73,9 @@ class CollectionContainer extends React.Component<{}, CollectionContainerState> 
   render() {
     return (
       <div>
-        <div className="data-table">{this.tableDataElement}</div>
+        {Object.keys(this.state.data).length > 0 && (
+          <div className="data-table">{this.tableDataElement}</div>
+        )}
       </div>
     );
   }
