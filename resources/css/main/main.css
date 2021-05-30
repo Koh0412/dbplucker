@@ -237,39 +237,52 @@ main.dark * {
   color: #5eedff;
 }
 
-.data-table {
+.container {
+  width: 80%;
+  overflow: auto;
+  height: 70%;
+}
+
+.container .data-table {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  border: 1px solid;
 }
 
-.data-table .column {
-  min-width: 70px;
+.container .data-table .column {
   border-right: 1px solid;
+  border-bottom: 1px solid;
+  border-top: 1px solid;
 }
 
-.data-table .column:last-child {
-  border-right: none;
+.container .data-table .column:first-child {
+  border-left: 1px solid;
 }
 
-.data-table .column .column-name {
+.container .data-table .column .column-name {
   border-bottom: 1px solid;
   background: #3a485d;
   padding: 0 .5rem;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 
-.data-table .column .record-list {
+.container .data-table .column .record-list {
   margin: 0;
   padding: 0;
 }
 
-.data-table .column .record-list li {
+.container .data-table .column .record-list li {
   height: 25px;
   padding: 0 .5rem;
-  border-bottom: 1px solid;
+  white-space: nowrap;
 }
 
-.data-table .column .record-list li:last-child {
+.container .data-table .column .record-list li:nth-child(even) {
+  background-color: #2e3743;
+}
+
+.container .data-table .column .record-list li:last-child {
   border-bottom: none;
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { ipcKeys } from "../../../common/ipcKeys";
 
 interface ITableData {
-  [column: string]: (string | number)[];
+  [column: string]: any[];
 }
 
 interface CollectionContainerState {
@@ -30,7 +30,13 @@ class CollectionContainer extends React.Component<{}, CollectionContainerState> 
   get tableDataElement() {
     return Object.keys(this.state.data).map((column, i) => {
       const records = this.state.data[column];
+
       const recordListElement = records.map((record, i) => {
+        if (record !== null && typeof (record) === "object") {
+          const date = new Date(record);
+          record = `${date.toLocaleDateString().replace(/\//gi, '-')} ${date.toLocaleTimeString()}`;
+        }
+
         return (<li key={i}>{record}</li>);
       });
 
@@ -72,7 +78,7 @@ class CollectionContainer extends React.Component<{}, CollectionContainerState> 
    */
   render() {
     return (
-      <div>
+      <div className="container">
         {Object.keys(this.state.data).length > 0 && (
           <div className="data-table">{this.tableDataElement}</div>
         )}
