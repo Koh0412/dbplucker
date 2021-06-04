@@ -37,13 +37,7 @@ export class MySQL {
     this._connection.then(() => {
       store.set(storeKeys.CONNECT_INFO, this.setting);
     }).catch((err) => {
-      const msg = err.sqlMessage;
-
-      if (msg) {
-        dialog.showErrorBox('Connection Error', msg);
-      } else {
-        dialog.showErrorBox('Uncaught Application Error', `Error: ${err.code} ${err.address}:${err.port}`);
-      }
+      this.error(err);
     });
   }
 
@@ -57,7 +51,7 @@ export class MySQL {
         const res = await connect.query(query);
         return res;
       } catch (err) {
-        dialog.showErrorBox('SQL ERROR', `${err.sqlMessage}\n\n your SQL: ${err.sql}`);
+        this.error(err);
       }
     });
   }
@@ -144,6 +138,16 @@ export class MySQL {
     };
 
     return info;
+  }
+
+  private error(err: any) {
+    if (err.sqlMessage) {
+      dialog.showErrorBox('Connection Error', `${err.sqlMessage}\n\n SQL: ${err.sql}`);
+    } else if (err.address) {
+      dialog.showErrorBox('Uncaught Application Error', `Error: ${err.code} ${err.address}:${err.port}`);
+    } else {
+      dialog.showErrorBox('Uncaught Application Error', `Error: ${err.code}`);
+    }
   }
 }
 
