@@ -5,12 +5,17 @@ interface ITableData {
   [column: string]: any[];
 }
 
-interface CollectionContainerState {
-  data: ITableData;
+interface CollectionContainerProps {
+  styleWidth?: string;
 }
 
-class CollectionContainer extends React.Component<{}, CollectionContainerState> {
-  constructor(props: {}) {
+interface CollectionContainerState {
+  data: ITableData;
+  containerCss?: React.CSSProperties;
+}
+
+class CollectionContainer extends React.Component<CollectionContainerProps, CollectionContainerState> {
+  constructor(props: CollectionContainerProps) {
     super(props);
 
     // TODO: 切り替えは一先ずタブ方式で this.state.tab=1 this.contentElements[this.state.tab]
@@ -18,11 +23,25 @@ class CollectionContainer extends React.Component<{}, CollectionContainerState> 
       data: {},
     };
   }
+
   /**
    * コンポネントがマウントされた後に実行
    */
   componentDidMount() {
     ipcRenderer.on(ipcKeys.SHOW_RECORDS, this.rebuildTableData.bind(this));
+  }
+
+  /**
+   * コンポネントが更新された時に実行
+   */
+  componentDidUpdate(previousProps: CollectionContainerProps) {
+    if (previousProps.styleWidth !== this.props.styleWidth) {
+      this.setState({
+        containerCss: {
+          width: `calc(${document.body.clientWidth + 'px'} - ${this.props.styleWidth})`,
+        },
+      });
+    }
   }
 
   /**
@@ -80,7 +99,7 @@ class CollectionContainer extends React.Component<{}, CollectionContainerState> 
   render() {
     return (
       <>
-        <div className="container">
+        <div className="container" style={this.state.containerCss}>
           {Object.keys(this.state.data).length > 0 && (
             <div className="data-table">{this.tableDataElement}</div>
           )}

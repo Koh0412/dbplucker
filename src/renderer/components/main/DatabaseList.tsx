@@ -5,14 +5,18 @@ import { UtilFunc } from "../../utils/UtilFunc";
 
 interface DatabaseListProps {
   dbinfo?: IDatabaseInfoCollection;
+  resize: (styleWidth: string) => void;
 }
 
 class DatabaseList extends React.Component<DatabaseListProps> {
-  tableRefs: React.RefObject<HTMLUListElement>[] = [];
+  private tableRefs: React.RefObject<HTMLUListElement>[] = [];
+  private databaseRef: React.RefObject<HTMLUListElement>;
 
   constructor(props: DatabaseListProps) {
     super(props);
     ipcRenderer.on(ipcKeys.DBINFO, this.setTableRefs.bind(this));
+
+    this.databaseRef = React.createRef<HTMLUListElement>();
   }
 
   /**
@@ -41,6 +45,24 @@ class DatabaseList extends React.Component<DatabaseListProps> {
    */
   componentDidMount() {
     ipcRenderer.on(ipcKeys.SHOW_TABLES, this.showTables.bind(this));
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      const target = entries[0].target as HTMLElement;
+
+      let styleWidth = '';
+
+      if (!target.style.width) {
+        styleWidth = target.clientWidth + 'px';
+      } else {
+        styleWidth = target.style.width;
+      }
+
+      this.props.resize(styleWidth);
+    });
+
+    if (this.databaseRef.current) {
+      resizeObserver.observe(this.databaseRef.current);
+    }
   }
 
   /**
@@ -119,7 +141,7 @@ class DatabaseList extends React.Component<DatabaseListProps> {
    */
   render() {
     return (
-      <ul className="database-list">{this.databaseElements}</ul>
+      <ul className="database-list" ref={this.databaseRef}>{this.databaseElements}</ul>
     );
   }
 }
