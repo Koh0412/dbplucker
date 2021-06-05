@@ -37,7 +37,7 @@ class CollectionContainer extends React.Component<CollectionContainerProps, Coll
   componentDidUpdate(previousProps: CollectionContainerProps) {
     if (previousProps.resizeWidth !== this.props.resizeWidth) {
       if (this.props.resizeWidth) {
-        const computedWidth = document.body.clientWidth - this.props.resizeWidth;
+        const computedWidth = document.body.clientWidth - this.props.resizeWidth - 50;
 
         this.setState({
           containerCss: {
