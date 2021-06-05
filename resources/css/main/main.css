@@ -41,6 +41,10 @@ button:focus {
   background-color: #4b627080;
 }
 
+::-webkit-scrollbar-corner {
+  background: #4b627080;
+}
+
 /** components **/
 .btn-primary {
   padding: 3px 0;
@@ -292,4 +296,9 @@ main.dark * {
 
 .container .data-table .column .record-list li:last-child {
   border-bottom: none;
+}
+
+.side-tab {
+  width: 50px;
+  background: #313842;
 }

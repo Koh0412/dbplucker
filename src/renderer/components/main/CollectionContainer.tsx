@@ -6,7 +6,7 @@ interface ITableData {
 }
 
 interface CollectionContainerProps {
-  styleWidth?: string;
+  resizeWidth?: number;
 }
 
 interface CollectionContainerState {
@@ -35,12 +35,16 @@ class CollectionContainer extends React.Component<CollectionContainerProps, Coll
    * コンポネントが更新された時に実行
    */
   componentDidUpdate(previousProps: CollectionContainerProps) {
-    if (previousProps.styleWidth !== this.props.styleWidth) {
-      this.setState({
-        containerCss: {
-          width: `calc(${document.body.clientWidth + 'px'} - ${this.props.styleWidth})`,
-        },
-      });
+    if (previousProps.resizeWidth !== this.props.resizeWidth) {
+      if (this.props.resizeWidth) {
+        const computedWidth = document.body.clientWidth - this.props.resizeWidth;
+
+        this.setState({
+          containerCss: {
+            width: computedWidth + 'px',
+          },
+        });
+      }
     }
   }
 

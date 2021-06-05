@@ -5,7 +5,7 @@ import { UtilFunc } from "../../utils/UtilFunc";
 
 interface DatabaseListProps {
   dbinfo?: IDatabaseInfoCollection;
-  resize: (styleWidth: string) => void;
+  resize: (width: number) => void;
 }
 
 class DatabaseList extends React.Component<DatabaseListProps> {
@@ -49,15 +49,11 @@ class DatabaseList extends React.Component<DatabaseListProps> {
     const resizeObserver = new ResizeObserver((entries) => {
       const target = entries[0].target as HTMLElement;
 
-      let styleWidth = '';
-
       if (!target.style.width) {
-        styleWidth = target.clientWidth + 'px';
+        this.props.resize(target.clientWidth);
       } else {
-        styleWidth = target.style.width;
+        this.props.resize(parseInt(target.style.width, 10));
       }
-
-      this.props.resize(styleWidth);
     });
 
     if (this.databaseRef.current) {

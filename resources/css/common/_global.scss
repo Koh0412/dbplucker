@@ -31,6 +31,10 @@ button {
   background-color: #4b627080;
 }
 
+::-webkit-scrollbar-corner {
+  background: #4b627080;
+}
+
 /** components **/
 
 .btn-primary {

@@ -7,7 +7,7 @@ import TitleBar from './TitleBar';
 interface AppState {
   mode: string;
   dbinfo?: IDatabaseInfoCollection;
-  styleWidth?: string;
+  resizeWidth?: number;
 }
 
 class App extends React.Component<{}, AppState> {
@@ -39,8 +39,8 @@ class App extends React.Component<{}, AppState> {
    * 子コンポーネントからリサイズを受け取る
    * @param styleWidth
    */
-  resize(styleWidth: string) {
-    this.setState({ styleWidth });
+  resize(width: number) {
+    this.setState({ resizeWidth: width });
   }
 
   /**
@@ -56,8 +56,9 @@ class App extends React.Component<{}, AppState> {
       <>
         <TitleBar color="#c6cbd1" bgColor="#1e2226" />
         <main className={this.state.mode}>
+          <div className="side-tab"></div>
           <DatabaseList dbinfo={this.state.dbinfo} resize={this.resize.bind(this)} />
-          <CollectionContainer styleWidth={this.state.styleWidth} />
+          <CollectionContainer resizeWidth={this.state.resizeWidth} />
         </main>
       </>
     );
