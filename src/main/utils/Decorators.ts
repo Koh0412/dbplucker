@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, ipcMain } from "electron";
 
 /**
  * 使用するhtmlファイルを指定
@@ -25,8 +25,9 @@ export function useDocument(name: string) {
  */
 export function ipcMainRecieve(event: string) {
   return function (target: object, propertyKey: string, descriptor: any) {
-    app.on('browser-window-focus', () => {
-      descriptor.window = BrowserWindow.getFocusedWindow();
+    app.on('browser-window-created', (e, window) => {
+      console.log(window.resizable)
+      descriptor.window = window;
 
       ipcMain.on(event, (e, args) => {
         descriptor.value(e, args);
