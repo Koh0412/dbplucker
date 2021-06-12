@@ -1,19 +1,15 @@
-import { ipcMain } from "electron";
 import { ipcKeys } from "@common/ipcKeys";
 import { storeKeys } from "@common/storeKeys";
 import { WINDOW_OPTIONS } from "../../constants/windowOption";
 import { mysql } from "../../lib/MySQL";
 import { store } from "../../lib/Store";
-import { envHandler, useDocument } from "../../utils";
+import { envHandler, ipcMainRecieve, useDocument } from "../../utils";
 import { BaseWindow } from "./BaseWindow";
 
 @useDocument('settings')
 export class SettingWindow extends BaseWindow {
   constructor() {
     super(WINDOW_OPTIONS.settings);
-
-    ipcMain.on(ipcKeys.CONNECT, this.connectDatabase.bind(this));
-    ipcMain.on(ipcKeys.REGIST_FAV, this.registFavorite.bind(this));
 
     this.window?.on('ready-to-show', () => {
       const favList = store.getAsArray<IDatabaseSetting>(storeKeys.FAV_LIST);
@@ -42,6 +38,7 @@ export class SettingWindow extends BaseWindow {
    * @param e
    * @param setting
    */
+  @ipcMainRecieve(ipcKeys.CONNECT)
   async connectDatabase(e: Electron.IpcMainEvent, setting: IDatabaseSetting) {
     mysql.createConnection(setting);
 
@@ -63,6 +60,7 @@ export class SettingWindow extends BaseWindow {
    * @param e
    * @param setting
    */
+  @ipcMainRecieve(ipcKeys.REGIST_FAV)
   async registFavorite(e: Electron.IpcMainEvent, favorite: IFavorite) {
     const favList = store.getAsArray<IFavorite>(storeKeys.FAV_LIST);
 

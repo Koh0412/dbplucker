@@ -1,10 +1,9 @@
-import { ipcMain } from "electron";
 import { ipcKeys } from "@common/ipcKeys";
 import { storeKeys } from "@common/storeKeys";
 import { WINDOW_OPTIONS } from "../../constants/windowOption";
 import { mysql } from "../../lib/MySQL";
 import { store } from "../../lib/Store";
-import { useDocument, envHandler } from "../../utils";
+import { useDocument, envHandler, ipcMainRecieve } from "../../utils";
 import { BaseWindow } from "./BaseWindow";
 import { SettingWindow } from "./SettingWindow";
 
@@ -14,9 +13,6 @@ export class MainWindow extends BaseWindow {
 
   constructor() {
     super(WINDOW_OPTIONS.main);
-
-    ipcMain.on(ipcKeys.SEND_DB, this.showTables.bind(this));
-    ipcMain.on(ipcKeys.SEND_TABLE, this.showTableRecords.bind(this));
 
     this.window?.on('ready-to-show', this.readyToShow.bind(this));
     this.window?.on('closed', this.closed.bind(this));
@@ -74,6 +70,7 @@ export class MainWindow extends BaseWindow {
    * @param e
    * @param database
    */
+  @ipcMainRecieve(ipcKeys.SEND_DB)
   async showTables(e: Electron.IpcMainEvent, database: IDatabaseProps) {
     const tableNames = await mysql.getTableNames(database);
     const props: IShowTableProps = {
@@ -90,6 +87,7 @@ export class MainWindow extends BaseWindow {
    * @param e
    * @param props
    */
+  @ipcMainRecieve(ipcKeys.SEND_TABLE)
   async showTableRecords(e: Electron.IpcMainEvent, props: { table: string; database: string; }) {
     const records = await mysql.getTableRecords(props);
     this.window?.webContents.send(ipcKeys.SHOW_RECORDS, records);

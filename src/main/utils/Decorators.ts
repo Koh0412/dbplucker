@@ -1,3 +1,5 @@
+import { app, BrowserWindow, ipcMain } from "electron";
+
 /**
  * 使用するhtmlファイルを指定
  * @param name
@@ -11,5 +13,24 @@ export function useDocument(name: string) {
         this.setUsingHtmlName(name);
       }
     }
+  }
+}
+
+/**
+ * ipcMain#onをデコレータとして使用する関数
+ * 実行するメソッド側のthisが少し特殊になっているので注意
+ *
+ * @param event
+ * @returns
+ */
+export function ipcMainRecieve(event: string) {
+  return function (target: object, propertyKey: string, descriptor: any) {
+    app.on('browser-window-focus', () => {
+      descriptor.window = BrowserWindow.getFocusedWindow();
+
+      ipcMain.on(event, (e, args) => {
+        descriptor.value(e, args);
+      });
+    });
   }
 }
