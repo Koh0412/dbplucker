@@ -25,7 +25,10 @@ var main = {
     }]
   },
   resolve: {
-    extensions: ['.js', '.ts']
+    extensions: ['.js', '.ts'],
+    alias: {
+      '@common': path.resolve(__dirname, './src/common'),
+    },
   },
 };
 

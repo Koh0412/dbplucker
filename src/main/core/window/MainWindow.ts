@@ -1,27 +1,22 @@
 import { ipcMain } from "electron";
-import { ipcKeys } from "../../../common/ipcKeys";
-import { storeKeys } from "../../../common/storeKeys";
+import { ipcKeys } from "@common/ipcKeys";
+import { storeKeys } from "@common/storeKeys";
 import { WINDOW_OPTIONS } from "../../constants/windowOption";
 import { mysql } from "../../lib/MySQL";
 import { store } from "../../lib/Store";
-import { envHandler } from "../../utils/Functions";
+import { useDocument, envHandler } from "../../utils";
 import { BaseWindow } from "./BaseWindow";
 import { SettingWindow } from "./SettingWindow";
 
+@useDocument('index')
 export class MainWindow extends BaseWindow {
   private settings: BaseWindow | null = null;
 
   constructor() {
     super(WINDOW_OPTIONS.main);
-    this.setUsingHtmlName('index');
 
     ipcMain.on(ipcKeys.SEND_DB, this.showTables.bind(this));
     ipcMain.on(ipcKeys.SEND_TABLE, this.showTableRecords.bind(this));
-
-    ipcMain.on(ipcKeys.WIN_CLOSE, () => this.window?.close());
-    ipcMain.on(ipcKeys.WIN_MAX, () => this.window?.maximize());
-    ipcMain.on(ipcKeys.WIN_MIN, () => this.window?.minimize());
-    ipcMain.on(ipcKeys.WIN_RESTORE, () => this.window?.restore());
 
     this.window?.on('ready-to-show', this.readyToShow.bind(this));
     this.window?.on('closed', this.closed.bind(this));

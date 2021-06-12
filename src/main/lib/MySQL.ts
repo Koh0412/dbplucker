@@ -6,7 +6,7 @@ import { store } from './Store';
 import { storeKeys } from '../../common/storeKeys';
 
 export class MySQL {
-  private _connection: Bluebird<promiseMysql.Connection> | undefined;
+  private _connection: any | undefined;
   private setting: IDatabaseSetting | undefined;
 
   constructor() {}
@@ -34,7 +34,7 @@ export class MySQL {
       multipleStatements: true
     });
 
-    this._connection.then(() => {
+    (this._connection as Bluebird<promiseMysql.Connection>).then(() => {
       store.set(storeKeys.CONNECT_INFO, this.setting);
     }).catch((err) => {
       this.error(err);

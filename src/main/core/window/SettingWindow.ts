@@ -1,16 +1,16 @@
 import { ipcMain } from "electron";
-import { ipcKeys } from "../../../common/ipcKeys";
-import { storeKeys } from "../../../common/storeKeys";
+import { ipcKeys } from "@common/ipcKeys";
+import { storeKeys } from "@common/storeKeys";
 import { WINDOW_OPTIONS } from "../../constants/windowOption";
 import { mysql } from "../../lib/MySQL";
 import { store } from "../../lib/Store";
-import { envHandler } from "../../utils/Functions";
+import { envHandler, useDocument } from "../../utils";
 import { BaseWindow } from "./BaseWindow";
 
+@useDocument('settings')
 export class SettingWindow extends BaseWindow {
   constructor() {
     super(WINDOW_OPTIONS.settings);
-    this.setUsingHtmlName('settings');
 
     ipcMain.on(ipcKeys.CONNECT, this.connectDatabase.bind(this));
     ipcMain.on(ipcKeys.REGIST_FAV, this.registFavorite.bind(this));
