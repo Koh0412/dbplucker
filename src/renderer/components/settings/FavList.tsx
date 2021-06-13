@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ipcKeys } from '../../../common/ipcKeys';
+import { ipcKeys } from '@common/ipcKeys';
 
 interface FavListProps {
   favorite: (fav: IFavorite) => void;

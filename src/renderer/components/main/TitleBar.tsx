@@ -1,6 +1,6 @@
 import React from "react";
 import { XIcon, SquareIcon, DashIcon } from '@primer/octicons-react'
-import { ipcKeys } from "../../../common/ipcKeys";
+import { ipcKeys } from "@common/ipcKeys";
 
 interface TitleBarProps {
   bgColor: string;

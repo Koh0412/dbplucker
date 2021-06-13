@@ -4,7 +4,7 @@ import { ipcMain } from "electron";
 import { WINDOW_OPTIONS } from "../../constants/windowOption";
 import { mysql } from "../../lib/MySQL";
 import { store } from "../../lib/Store";
-import { useDocument, envHandler, ipcMainRecieve } from "../../utils";
+import { useDocument, envHandler, deleteStoreVal } from "../../utils";
 import { BaseWindow } from "./BaseWindow";
 import { SettingWindow } from "./SettingWindow";
 
@@ -61,12 +61,9 @@ export class MainWindow extends BaseWindow {
   /**
    * ウィンドウがclosed時に処理
    */
+  @deleteStoreVal(storeKeys.CONNECT_INFO)
   closed() {
-    store.delete(storeKeys.CONNECT_INFO);
-
-    if (this.settings) {
-      this.settings.window?.close();
-    }
+    this.settings?.window?.close();
   }
 
   /**

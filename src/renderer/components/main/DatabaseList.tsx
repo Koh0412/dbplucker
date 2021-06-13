@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ipcKeys } from "../../../common/ipcKeys";
+import { ipcKeys } from "@common/ipcKeys";
 import { UtilFunc } from "../../utils/UtilFunc";
 
 interface DatabaseListProps {

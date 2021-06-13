@@ -1,4 +1,5 @@
 import { app, ipcMain } from "electron";
+import { store } from "../lib/Store";
 
 /**
  * 使用するhtmlファイルを指定
@@ -33,5 +34,21 @@ export function ipcMainRecieve(event: string) {
         descriptor.value(e, args);
       });
     });
+  }
+}
+
+/**
+ * ストアから特定の値を削除 メソッド処理前に実行
+ * @param key
+ * @returns
+ */
+export function deleteStoreVal(key: string) {
+  return function (target: object, propertyKey: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+
+    descriptor.value = function() {
+      store.delete(key);
+      Reflect.apply(method, this, arguments);
+    }
   }
 }

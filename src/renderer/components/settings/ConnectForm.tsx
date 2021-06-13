@@ -1,5 +1,5 @@
 import React from 'react';
-import { ipcKeys } from '../../../common/ipcKeys';
+import { ipcKeys } from '@common/ipcKeys';
 import FormItem from './FormItem';
 
 interface ConnectFormProps {

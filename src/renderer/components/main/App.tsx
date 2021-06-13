@@ -1,5 +1,5 @@
 import React from 'react';
-import { ipcKeys } from '../../../common/ipcKeys';
+import { ipcKeys } from '@common/ipcKeys';
 import CollectionContainer from './CollectionContainer';
 import DatabaseList from './DatabaseList';
 import TitleBar from './TitleBar';

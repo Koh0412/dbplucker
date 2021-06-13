@@ -44,7 +44,10 @@ var renderer = {
     path: path.resolve(__dirname, 'dist/renderer')
   },
   resolve: {
-    extensions: ['.json', '.js', '.jsx', '.css', '.ts', '.tsx']
+    extensions: ['.json', '.js', '.jsx', '.css', '.ts', '.tsx'],
+    alias: {
+      '@common': path.resolve(__dirname, './src/common'),
+    },
   },
   module: {
     rules: [{
