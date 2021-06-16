@@ -1,12 +1,9 @@
 import React from "react";
 import { ipcKeys } from "@common/ipcKeys";
+import { connectComponentMain, MainProps } from "../../utils/stateConnect";
 
 interface ITableData {
   [column: string]: any[];
-}
-
-interface CollectionContainerProps {
-  resizeWidth?: number;
 }
 
 interface CollectionContainerState {
@@ -14,8 +11,10 @@ interface CollectionContainerState {
   containerCss?: React.CSSProperties;
 }
 
-class CollectionContainer extends React.Component<CollectionContainerProps, CollectionContainerState> {
-  constructor(props: CollectionContainerProps) {
+type Props = MainProps
+
+class CollectionContainer extends React.Component<Props, CollectionContainerState> {
+  constructor(props: Props) {
     super(props);
 
     // TODO: 切り替えは一先ずタブ方式で this.state.tab=1 this.contentElements[this.state.tab]
@@ -34,17 +33,15 @@ class CollectionContainer extends React.Component<CollectionContainerProps, Coll
   /**
    * コンポネントが更新された時に実行
    */
-  componentDidUpdate(previousProps: CollectionContainerProps) {
-    if (previousProps.resizeWidth !== this.props.resizeWidth) {
-      if (this.props.resizeWidth) {
-        const computedWidth = document.body.clientWidth - this.props.resizeWidth - 50;
+  componentDidUpdate(previousProps: Props) {
+    if (previousProps.dblistWidth !== this.props.dblistWidth && this.props.dblistWidth) {
+      const computedWidth = document.body.clientWidth - this.props.dblistWidth - 50;
 
-        this.setState({
-          containerCss: {
-            width: computedWidth + 'px',
-          },
-        });
-      }
+      this.setState({
+        containerCss: {
+          width: computedWidth + 'px',
+        },
+      });
     }
   }
 
@@ -113,4 +110,4 @@ class CollectionContainer extends React.Component<CollectionContainerProps, Coll
   }
 }
 
-export default CollectionContainer;
+export default connectComponentMain(CollectionContainer);

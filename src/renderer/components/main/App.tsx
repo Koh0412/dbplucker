@@ -3,16 +3,14 @@ import { ipcKeys } from '@common/ipcKeys';
 import CollectionContainer from './CollectionContainer';
 import DatabaseList from './DatabaseList';
 import TitleBar from './TitleBar';
-import { connectComponentMain, MainProps } from '../../utils/stateConnect';
 
 interface AppState {
   mode: string;
   dbinfo?: IDatabaseInfoCollection;
-  resizeWidth?: number;
 }
 
-class App extends React.Component<MainProps, AppState> {
-  constructor(props: MainProps) {
+class App extends React.Component<{}, AppState> {
+  constructor(props: {}) {
     super(props);
 
     this.state = {
@@ -37,14 +35,6 @@ class App extends React.Component<MainProps, AppState> {
   }
 
   /**
-   * 子コンポーネントからリサイズを受け取る
-   * @param styleWidth
-   */
-  resize(width: number) {
-    this.setState({ resizeWidth: width });
-  }
-
-  /**
    * レンダリング
    * @returns
    */
@@ -58,12 +48,12 @@ class App extends React.Component<MainProps, AppState> {
         <TitleBar color="#c6cbd1" bgColor="#1e2226" />
         <main className={this.state.mode}>
           <div className="side-tab"></div>
-          <DatabaseList dbinfo={this.state.dbinfo} resize={this.resize.bind(this)} />
-          <CollectionContainer resizeWidth={this.state.resizeWidth} />
+          <DatabaseList dbinfo={this.state.dbinfo} />
+          <CollectionContainer />
         </main>
       </>
     );
   }
 }
 
-export default connectComponentMain(App);
+export default App;

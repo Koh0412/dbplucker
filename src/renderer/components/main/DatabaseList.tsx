@@ -2,17 +2,20 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ipcKeys } from "@common/ipcKeys";
 import { UtilFunc } from "../../utils/UtilFunc";
+import { connectComponentMain, MainProps } from "../../utils/stateConnect";
+import { setDblistWidth } from "../../stores/mainStore";
 
 interface DatabaseListProps {
   dbinfo?: IDatabaseInfoCollection;
-  resize: (width: number) => void;
 }
 
-class DatabaseList extends React.Component<DatabaseListProps> {
+type Props = DatabaseListProps & MainProps;
+
+class DatabaseList extends React.Component<Props> {
   private tableRefs: React.RefObject<HTMLUListElement>[] = [];
   private databaseRef: React.RefObject<HTMLUListElement>;
 
-  constructor(props: DatabaseListProps) {
+  constructor(props: Props) {
     super(props);
     ipcRenderer.on(ipcKeys.DBINFO, this.setTableRefs.bind(this));
 
@@ -50,9 +53,9 @@ class DatabaseList extends React.Component<DatabaseListProps> {
       const target = entries[0].target as HTMLElement;
 
       if (!target.style.width) {
-        this.props.resize(target.clientWidth);
+        this.props.dispatch(setDblistWidth(target.clientWidth));
       } else {
-        this.props.resize(parseInt(target.style.width, 10));
+        this.props.dispatch(setDblistWidth(parseInt(target.style.width, 10)));
       }
     });
 
@@ -142,4 +145,4 @@ class DatabaseList extends React.Component<DatabaseListProps> {
   }
 }
 
-export default DatabaseList;
+export default connectComponentMain(DatabaseList);

@@ -7,6 +7,7 @@ export type MainProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof m
 function mapStateToProps(state: RootState) {
   return {
     tab: state.main.tab,
+    dblistWidth: state.main.dblistWidth,
   };
 }
 
