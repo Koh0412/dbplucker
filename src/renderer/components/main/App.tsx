@@ -3,6 +3,7 @@ import { ipcKeys } from '@common/ipcKeys';
 import CollectionContainer from './CollectionContainer';
 import DatabaseList from './DatabaseList';
 import TitleBar from './TitleBar';
+import { connectComponentMain, MainProps } from '../../utils/stateConnect';
 
 interface AppState {
   mode: string;
@@ -10,8 +11,8 @@ interface AppState {
   resizeWidth?: number;
 }
 
-class App extends React.Component<{}, AppState> {
-  constructor(props: {}) {
+class App extends React.Component<MainProps, AppState> {
+  constructor(props: MainProps) {
     super(props);
 
     this.state = {
@@ -65,4 +66,4 @@ class App extends React.Component<{}, AppState> {
   }
 }
 
-export default App;
+export default connectComponentMain(App);
