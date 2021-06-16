@@ -3,7 +3,7 @@ export class UtilFunc {
    * join space
    * @param names
    */
-  static joinSpace(...names: string[]) {
+  static joinSpace(...names: string[]): string {
     return names.join(' ');
   }
 
@@ -13,7 +13,7 @@ export class UtilFunc {
    * @param className
    * @returns
    */
-  static getChildrenByClass<T extends Element>(target: T | null | undefined, className: string) {
+  static getChildrenByClass<T extends Element>(target: T | null | undefined, className: string): T[] {
     const elements = [];
 
     if (target) {
@@ -27,5 +27,27 @@ export class UtilFunc {
     }
 
     return elements as T[];
+  }
+
+  /**
+   * yyyy-mm-dd hh:ii:ss方式の日付を返す
+   * @param value
+   * @returns
+   */
+  static getStandardDateTime(value: string | number | Date): string {
+    const date = new Date(value);
+    const dateOption: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    };
+
+    const timeOption: Intl.DateTimeFormatOptions = {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    };
+
+    return `${date.toLocaleDateString(undefined, dateOption).replace(/\//gi, '-')} ${date.toLocaleTimeString(undefined, timeOption)}`;
   }
 }

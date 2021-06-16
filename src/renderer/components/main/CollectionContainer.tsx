@@ -1,6 +1,7 @@
 import React from "react";
 import { ipcKeys } from "@common/ipcKeys";
 import { connectStoreMain, MainProps } from "../../utils/storeConnector";
+import { UtilFunc } from "../../utils/UtilFunc";
 
 interface ITableData {
   [column: string]: any[];
@@ -54,8 +55,7 @@ class CollectionContainer extends React.Component<Props, CollectionContainerStat
 
       const recordListElement = records.map((record, i) => {
         if (record !== null && typeof (record) === 'object') {
-          const date = new Date(record);
-          record = `${date.toLocaleDateString().replace(/\//gi, '-')} ${date.toLocaleTimeString()}`;
+          record = UtilFunc.getStandardDateTime(record);
         }
 
         return (<li key={i}>{record}</li>);
