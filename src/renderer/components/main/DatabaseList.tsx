@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ipcKeys } from "@common/ipcKeys";
 import { UtilFunc } from "../../utils/UtilFunc";
-import { connectComponentMain, MainProps } from "../../utils/stateConnect";
+import { connectStoreMain, MainProps } from "../../utils/storeConnector";
 import { setDblistWidth } from "../../stores/mainStore";
 
 interface DatabaseListProps {
@@ -145,4 +145,4 @@ class DatabaseList extends React.Component<Props> {
   }
 }
 
-export default connectComponentMain(DatabaseList);
+export default connectStoreMain(DatabaseList);

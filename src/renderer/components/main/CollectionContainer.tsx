@@ -1,6 +1,6 @@
 import React from "react";
 import { ipcKeys } from "@common/ipcKeys";
-import { connectComponentMain, MainProps } from "../../utils/stateConnect";
+import { connectStoreMain, MainProps } from "../../utils/storeConnector";
 
 interface ITableData {
   [column: string]: any[];
@@ -110,4 +110,4 @@ class CollectionContainer extends React.Component<Props, CollectionContainerStat
   }
 }
 
-export default connectComponentMain(CollectionContainer);
+export default connectStoreMain(CollectionContainer);
