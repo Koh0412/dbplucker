@@ -2,7 +2,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { connect } from "react-redux";
 import { RootState } from "../stores";
 
-export type MainProps = ReturnType<typeof mapStateToMainProps> & ReturnType<typeof mapDispatchToMainProps>;
+export type MainStoreProps = ReturnType<typeof mapStateToMainProps> & ReturnType<typeof mapDispatchToMainProps>;
 
 function mapStateToMainProps(state: RootState) {
   return {
@@ -15,4 +15,7 @@ function mapDispatchToMainProps(dispatch: Dispatch) {
   return { dispatch };
 }
 
-export const connectStoreMain = connect(mapStateToMainProps, mapDispatchToMainProps);
+/**
+ * メインのreduxストアに接続したコンポーネントを返す
+ **/
+export const mainStoreConnectedComponent = connect(mapStateToMainProps, mapDispatchToMainProps);

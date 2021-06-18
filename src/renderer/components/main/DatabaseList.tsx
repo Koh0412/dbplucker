@@ -2,14 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ipcKeys } from "@common/ipcKeys";
 import { UtilFunc } from "../../utils/UtilFunc";
-import { connectStoreMain, MainProps } from "../../utils/storeConnector";
+import { mainStoreConnectedComponent, MainStoreProps } from "../../utils/storeConnector";
 import { setDblistWidth } from "../../stores/mainStore";
 
 interface DatabaseListProps {
   dbinfo?: IDatabaseInfoCollection;
 }
 
-type Props = DatabaseListProps & MainProps;
+type Props = DatabaseListProps & MainStoreProps;
 
 class DatabaseList extends React.Component<Props> {
   private tableRefs: React.RefObject<HTMLUListElement>[] = [];
@@ -145,4 +145,4 @@ class DatabaseList extends React.Component<Props> {
   }
 }
 
-export default connectStoreMain(DatabaseList);
+export default mainStoreConnectedComponent(DatabaseList);

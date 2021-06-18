@@ -1,6 +1,6 @@
 import React from "react";
 import { ipcKeys } from "@common/ipcKeys";
-import { connectStoreMain, MainProps } from "../../utils/storeConnector";
+import { mainStoreConnectedComponent, MainStoreProps } from "../../utils/storeConnector";
 import { UtilFunc } from "../../utils/UtilFunc";
 
 interface ITableData {
@@ -12,7 +12,7 @@ interface CollectionContainerState {
   containerCss?: React.CSSProperties;
 }
 
-type Props = MainProps
+type Props = MainStoreProps
 
 class CollectionContainer extends React.Component<Props, CollectionContainerState> {
   constructor(props: Props) {
@@ -110,4 +110,4 @@ class CollectionContainer extends React.Component<Props, CollectionContainerStat
   }
 }
 
-export default connectStoreMain(CollectionContainer);
+export default mainStoreConnectedComponent(CollectionContainer);
